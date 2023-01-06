@@ -876,7 +876,7 @@ void CClientGame::DoPulsePostFrame()
         {
             int iPosX = uiWidth / 2;                    // Half way across
             int iPosY = uiHeight * 45 / 100;            // 45/100 down
-            g_pCore->GetGraphics()->DrawString(iPosX, iPosY, iPosX, iPosY, COLOR_ARGB(255, 255, 0, 0), "*** NETWORK TROUBLE ***", 2.0f, 2.0f,
+            g_pCore->GetGraphics()->DrawString(iPosX, iPosY, iPosX, iPosY, COLOR_ARGB(255, 255, 0, 0), "*** ПРОБЛЕМА СЕТИ, ПАНИКА! ***", 2.0f, 2.0f,
                                                DT_NOCLIP | DT_CENTER);
         }
 
