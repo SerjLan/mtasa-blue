@@ -280,7 +280,7 @@ void CPacketHandler::Packet_ServerConnected(NetBitStreamInterface& bitStream)
     // Echo Connected to the chatbox
     if (szVersionString[0] != '\0')
     {
-        g_pCore->ChatPrintfColor("* Connected! [%s]", false, CHATCOLOR_INFO, szVersionString);
+        g_pCore->ChatPrintfColor("* Подключен!", false, CHATCOLOR_INFO, " ГТА СИБИРЬ");
     }
     else
     {
