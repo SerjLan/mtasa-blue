@@ -33,9 +33,9 @@ void CDiscordManager::Initialize()
     if (m_Initialized) return;
     Reconnect(true);            // Try to interact with discord on construction
     m_Thread = new CThreadHandle(CDiscordManager::DiscordThread, this);
-    m_StoredActivity.GetAssets().SetLargeImage("moon");            // Always thing
+    m_StoredActivity.GetAssets().SetLargeImage("logo_gtas");            // Always thing
     // m_StoredActivity.GetAssets().SetSmallImage("logo");
-    m_StoredActivity.GetAssets().SetLargeText("Version 1.5.9");
+    m_StoredActivity.GetAssets().SetLargeText("Version 5.0.0");
     m_Initialized = true;   
 }
 
