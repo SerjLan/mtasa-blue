@@ -671,7 +671,7 @@ SString CInstallManager::_ProcessLayoutChecks()
         RemoveDirectory(ExtractPath(strTestFilePath));
     }
 
-#if MTASA_VERSION_TYPE != VERSION_TYPE_CUSTOM
+#if MTASA_VERSION_TYPE != VERSION_TYPE_UNSTABLE
     // Check reg key exists
     {
         if (GetRegistryValue("", "Last Install Location").empty())
