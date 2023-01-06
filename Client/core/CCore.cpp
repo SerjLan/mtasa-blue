@@ -2061,7 +2061,7 @@ uint CCore::GetMinStreamingMemory()
 uint CCore::GetMaxStreamingMemory()
 {
     CalculateStreamingMemoryRange();
-    return m_fMaxStreamingMemory;
+    return m_fMaxStreamingMemory*1.5;
 }
 
 //
