@@ -2016,16 +2016,16 @@ void CCore::CalculateStreamingMemoryRange()
     int iVideoMemoryMB = g_pDeviceState->AdapterState.InstalledMemoryKB / 1024;
 
     // Calc min and max from lookup table
-    SSamplePoint<float> minPoints[] = {{512, 64}, {1024, 96}, {2048, 128}};
-    SSamplePoint<float> maxPoints[] = {{512, 96}, {1024, 128}, {2048, 256}};
-
+    SSamplePoint<float> minPoints[] = {{512, 64}, {1024, 96}, {2048, 128}, {3078, 256}, {4096, 512}};
+    SSamplePoint<float> maxPoints[] = {{512, 256}, {1024, 512}, {2048, 1024}, {3072, 2048}, {4096, 3072}};
+	
     float fMinAmount = EvalSamplePosition<float>(minPoints, NUMELMS(minPoints), iSystemRamMB);
     float fMaxAmount = EvalSamplePosition<float>(maxPoints, NUMELMS(maxPoints), iSystemRamMB);
 
     // Scale max if gta3.img is over 1GB
     SString strGta3imgFilename = PathJoin(GetLaunchPath(), "models", "gta3.img");
     uint    uiFileSizeMB = FileSize(strGta3imgFilename) / 0x100000LL;
-    float   fSizeScale = UnlerpClamped(1024, uiFileSizeMB, 2048);
+    float   fSizeScale = UnlerpClamped(3072, uiFileSizeMB, 4096);
     fMaxAmount += fMaxAmount * fSizeScale;
 
     // Apply cap dependant on video memory

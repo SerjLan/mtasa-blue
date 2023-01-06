@@ -3013,7 +3013,7 @@ void CSettings::LoadData()
 
     // Customized sa files
     m_pCheckBoxCustomizedSAFiles->SetSelected(GetApplicationSettingInt("customized-sa-files-request") != 0);
-    m_pCheckBoxCustomizedSAFiles->SetVisible(GetApplicationSettingInt("customized-sa-files-show") != 0);
+    m_pCheckBoxCustomizedSAFiles->SetVisible(false);
 
     // Controls
     CVARS_GET("invert_mouse", bVar);
