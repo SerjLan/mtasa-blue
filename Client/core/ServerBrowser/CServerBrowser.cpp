@@ -1576,7 +1576,7 @@ bool CServerBrowser::OnGeneralHelpClick(CGUIElement* pElement)
             CVector2D generalHelpSize = m_pGeneralHelpWindow->GetSize();
             CVector2D generalHelpPos = helpButtonPos - generalHelpSize + CVector2D(helpButtonSize.fX, 0);
             m_pGeneralHelpWindow->SetPosition(generalHelpPos);
-            m_pGeneralHelpWindow->SetVisible(true);
+            m_pGeneralHelpWindow->SetVisible(false);
             m_pGeneralHelpWindow->BringToFront();
         }
     }
@@ -2278,19 +2278,19 @@ void CServerBrowser::OnQuickConnectButtonClick()
     // Show help text
     if (m_uiShownQuickConnectHelpCount < 1)
     {
-        m_pQuickConnectHelpWindow->SetVisible(true);
-        m_pQuickConnectHelpWindow->BringToFront();
-        m_uiShownQuickConnectHelpCount++;
+        //m_pQuickConnectHelpWindow->SetVisible(true);
+        //m_pQuickConnectHelpWindow->BringToFront();
+        //m_uiShownQuickConnectHelpCount++;
     }
 
     // Switch to LAN tab, but don't save it as selected
     if (!m_uiIsUsingTempTab)
         m_BeforeTempServerBrowserType = GetCurrentServerBrowserType();
     m_uiIsUsingTempTab = 2;
-    m_pPanel->SetSelectedTab(m_pTab[ServerBrowserTypes::LAN]);
+    m_pPanel->SetSelectedTab(m_pTab[ServerBrowserTypes::FAVOURITES]);
 
     // Show history
-    m_pComboAddressHistory[ServerBrowserTypes::LAN]->ShowDropList();
+    //m_pComboAddressHistory[ServerBrowserTypes::LAN]->ShowDropList();
 }
 
 bool CServerBrowser::OnServerListChangeRow(CGUIKeyEventArgs Args)
