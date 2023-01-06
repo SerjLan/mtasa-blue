@@ -115,7 +115,35 @@ bool CConnectManager::Connect(const char* szHost, unsigned short usPort, const c
     // No connect if disk space is low
     if (!CCore::GetSingleton().CheckDiskSpace())
         return false;
-
+		
+	// Ограничения айди серверов при подключении
+    const string ipCon[] = { //IP Сервера
+		"127.0.0.1",
+		"127.0.0.2"
+	};  
+	
+	const int portCon[] = { //PORT Сервера
+		22003,
+		22003
+	};
+	
+    bool b3 = false;
+    for (uint i = 0; i < NUMELMS(ipCon); i++)
+    {
+		if (ipCon[i] == szHost && portCon[i] == usPort) 
+        {
+			g_pCore->GetConsole()->Print("Проверка IP - Прошла успешно");
+			g_pCore->GetConsole()->Print("Подключение к серверу...");
+			b3 = true;
+        }
+    }
+	
+    if(b3 == false) 
+    {
+		CCore::GetSingleton().ShowMessageBox(_("Подключение к другим серверам - запрещено | by GTASiberia"), _("Ошибка: неверный IP сервера"), MB_BUTTON_CANCEL | MB_ICON_INFO, m_pOnCancelClick);
+		return false;
+    }
+	
     // Set our packet handler
     pNet->RegisterPacketHandler(CConnectManager::StaticProcessPacket);
 
