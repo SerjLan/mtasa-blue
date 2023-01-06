@@ -18,7 +18,7 @@
 #define NATIVE_RES_Y    1024.0f
 
 #define NATIVE_BG_X     1280.0f
-#define NATIVE_BG_Y     649.0f
+#define NATIVE_BG_Y     1024.0f
 
 #define NATIVE_LOGO_X     1058.0f
 #define NATIVE_LOGO_Y     540.0f
@@ -162,28 +162,28 @@ CMainMenu::CMainMenu(CGUI* pManager)
     m_pLogo->SetZOrderingEnabled(false);
 
     // Create the image showing the version number
-    m_pVersion = reinterpret_cast<CGUIStaticImage*>(pManager->CreateStaticImage());
-    m_pVersion->LoadFromFile(CORE_MTA_VERSION);
-    m_pVersion->SetParent(m_pCanvas);
-    m_pVersion->SetPosition(CVector2D(0.855f, 0.512f), true);
-    m_pVersion->SetSize(CVector2D((32 / NATIVE_RES_X) * m_iMenuSizeX, (32 / NATIVE_RES_Y) * m_iMenuSizeY), false);
-    m_pVersion->SetProperty("InheritsAlpha", "False");
+    //m_pVersion = reinterpret_cast<CGUIStaticImage*>(pManager->CreateStaticImage());
+    //m_pVersion->LoadFromFile(CORE_MTA_VERSION);
+   // m_pVersion->SetParent(m_pCanvas);
+   // m_pVersion->SetPosition(CVector2D(0.855f, 0.512f), true);
+   // m_pVersion->SetSize(CVector2D((32 / NATIVE_RES_X) * m_iMenuSizeX, (32 / NATIVE_RES_Y) * m_iMenuSizeY), false);
+   // m_pVersion->SetProperty("InheritsAlpha", "False");
 
     float fBase = 0.613f;
     float fGap = 0.043f;
     // Our disconnect item is shown/hidden dynamically, so we store it seperately
-    m_pDisconnect = CreateItem(MENU_ITEM_DISCONNECT, "menu_disconnect.png", CVector2D(0.168f, fBase + fGap * 0));
+    m_pDisconnect = CreateItem(MENU_ITEM_DISCONNECT, "menu_disconnect.png", CVector2D(0.168f, fBase + fGap * 4));
     m_pDisconnect->image->SetVisible(false);
 
     // Create the menu items
     // Filepath, Relative position, absolute native size
     // And the font for the graphics is ?
-    m_menuItems.push_back(CreateItem(MENU_ITEM_QUICK_CONNECT, "menu_quick_connect.png", CVector2D(0.168f, fBase + fGap * 0)));
-    m_menuItems.push_back(CreateItem(MENU_ITEM_BROWSE_SERVERS, "menu_browse_servers.png", CVector2D(0.168f, fBase + fGap * 1)));
-    m_menuItems.push_back(CreateItem(MENU_ITEM_HOST_GAME, "menu_host_game.png", CVector2D(0.168f, fBase + fGap * 2)));
-    m_menuItems.push_back(CreateItem(MENU_ITEM_MAP_EDITOR, "menu_map_editor.png", CVector2D(0.168f, fBase + fGap * 3)));
-    m_menuItems.push_back(CreateItem(MENU_ITEM_SETTINGS, "menu_settings.png", CVector2D(0.168f, fBase + fGap * 4)));
-    m_menuItems.push_back(CreateItem(MENU_ITEM_ABOUT, "menu_about.png", CVector2D(0.168f, fBase + fGap * 5)));
+    m_menuItems.push_back(CreateItem(MENU_ITEM_QUICK_CONNECT, "menu_quick_connect.png", CVector2D(0.168f, fBase + fGap * 4)));
+  //  m_menuItems.push_back(CreateItem(MENU_ITEM_BROWSE_SERVERS, "menu_browse_servers.png", CVector2D(0.168f, fBase + fGap * 1)));
+ //   m_menuItems.push_back(CreateItem(MENU_ITEM_HOST_GAME, "menu_host_game.png", CVector2D(0.168f, fBase + fGap * 2)));
+   // m_menuItems.push_back(CreateItem(MENU_ITEM_MAP_EDITOR, "menu_map_editor.png", CVector2D(0.168f, fBase + fGap * 3)));
+    m_menuItems.push_back(CreateItem(MENU_ITEM_SETTINGS, "menu_settings.png", CVector2D(0.168f, fBase + fGap * 5)));
+   // m_menuItems.push_back(CreateItem(MENU_ITEM_ABOUT, "menu_about.png", CVector2D(0.168f, fBase + fGap * 5)));
     m_menuItems.push_back(CreateItem(MENU_ITEM_QUIT, "menu_quit.png", CVector2D(0.168f, fBase + fGap * 6)));
 
     // We store the position of the top item, and the second item.  These will be useful later
@@ -213,65 +213,65 @@ CMainMenu::CMainMenu(CGUI* pManager)
     float fDrawSizeY = (53 / NATIVE_RES_Y) * m_iMenuSizeY;
     float fDrawPosX = 0.83f * m_iMenuSizeX - fDrawSizeX;
     float fDrawPosY = 0.60f * m_iMenuSizeY;
-    m_pLatestNews = reinterpret_cast<CGUIStaticImage*>(pManager->CreateStaticImage());
-    m_pLatestNews->LoadFromFile(CORE_MTA_LATEST_NEWS);
-    m_pLatestNews->SetParent(m_pCanvas);
-    m_pLatestNews->SetPosition(CVector2D(fDrawPosX, fDrawPosY), false);
-    m_pLatestNews->SetSize(CVector2D(fDrawSizeX, fDrawSizeY), false);
-    m_pLatestNews->SetProperty("InheritsAlpha", "False");
-    m_pLatestNews->SetVisible(false);
+   // m_pLatestNews = reinterpret_cast<CGUIStaticImage*>(pManager->CreateStaticImage());
+   // m_pLatestNews->LoadFromFile(CORE_MTA_LATEST_NEWS);
+   // m_pLatestNews->SetParent(m_pCanvas);
+   // m_pLatestNews->SetPosition(CVector2D(fDrawPosX, fDrawPosY), false);
+  //  m_pLatestNews->SetSize(CVector2D(fDrawSizeX, fDrawSizeY), false);
+  //  m_pLatestNews->SetProperty("InheritsAlpha", "False");
+  //  m_pLatestNews->SetVisible(false);
 
     // Create news item stuff
-    fDrawPosX -= 25;
-    fDrawPosY += fDrawSizeY - 8;
-    for (uint i = 0; i < CORE_MTA_NEWS_ITEMS; i++)
-    {
-        fDrawPosY += 20;
+  //  fDrawPosX -= 25;
+  //  fDrawPosY += fDrawSizeY - 8;
+  //  for (uint i = 0; i < CORE_MTA_NEWS_ITEMS; i++)
+  //  {
+  //      fDrawPosY += 20;
         // Create our shadow and item
-        CGUILabel* pItemShadow = reinterpret_cast<CGUILabel*>(m_pManager->CreateLabel(m_pCanvas, " "));
-        CGUILabel* pItem = reinterpret_cast<CGUILabel*>(m_pManager->CreateLabel(m_pCanvas, " "));
+  //      CGUILabel* pItemShadow = reinterpret_cast<CGUILabel*>(m_pManager->CreateLabel(m_pCanvas, " "));
+  //      CGUILabel* pItem = reinterpret_cast<CGUILabel*>(m_pManager->CreateLabel(m_pCanvas, " "));
 
-        pItem->SetFont("sans");
-        pItemShadow->SetFont("sans");
-        pItem->SetHorizontalAlign(CGUI_ALIGN_RIGHT);
-        pItemShadow->SetHorizontalAlign(CGUI_ALIGN_RIGHT);
+ //       pItem->SetFont("sans");
+ //       pItemShadow->SetFont("sans");
+   //     pItem->SetHorizontalAlign(CGUI_ALIGN_RIGHT);
+  //      pItemShadow->SetHorizontalAlign(CGUI_ALIGN_RIGHT);
 
-        pItem->SetSize(CVector2D(fDrawSizeX, 14), false);
-        pItemShadow->SetSize(CVector2D(fDrawSizeX, 15), false);
+  //      pItem->SetSize(CVector2D(fDrawSizeX, 14), false);
+ //       pItemShadow->SetSize(CVector2D(fDrawSizeX, 15), false);
 
-        pItem->SetPosition(CVector2D(fDrawPosX, fDrawPosY), false);
-        pItemShadow->SetPosition(CVector2D(fDrawPosX + 1, fDrawPosY + 1), false);
+ //       pItem->SetPosition(CVector2D(fDrawPosX, fDrawPosY), false);
+  //      pItemShadow->SetPosition(CVector2D(fDrawPosX + 1, fDrawPosY + 1), false);
 
-        pItemShadow->SetTextColor(112, 112, 112);
+   //     pItemShadow->SetTextColor(112, 112, 112);
 
         // Set the handlers
-        pItem->SetClickHandler(GUI_CALLBACK(&CMainMenu::OnNewsButtonClick, this));
+  //      pItem->SetClickHandler(GUI_CALLBACK(&CMainMenu::OnNewsButtonClick, this));
 
         // Store the item in the array
-        m_pNewsItemLabels[i] = pItem;
-        m_pNewsItemShadowLabels[i] = pItemShadow;
+    //    m_pNewsItemLabels[i] = pItem;
+   //     m_pNewsItemShadowLabels[i] = pItemShadow;
 
         // Create our date label
-        fDrawPosY += 15;
-        CGUILabel* pItemDate = reinterpret_cast<CGUILabel*>(m_pManager->CreateLabel(m_pCanvas, " "));
+    //    fDrawPosY += 15;
+    //    CGUILabel* pItemDate = reinterpret_cast<CGUILabel*>(m_pManager->CreateLabel(m_pCanvas, " "));
 
-        pItemDate->SetFont("default-small");
-        pItemDate->SetHorizontalAlign(CGUI_ALIGN_RIGHT);
+    //    pItemDate->SetFont("default-small");
+    //    pItemDate->SetHorizontalAlign(CGUI_ALIGN_RIGHT);
 
-        pItemDate->SetSize(CVector2D(fDrawSizeX, 13), false);
-        pItemDate->SetPosition(CVector2D(fDrawPosX, fDrawPosY), false);
+    //    pItemDate->SetSize(CVector2D(fDrawSizeX, 13), false);
+    //    pItemDate->SetPosition(CVector2D(fDrawPosX, fDrawPosY), false);
 
-        m_pNewsItemDateLabels[i] = pItemDate;
+    //    m_pNewsItemDateLabels[i] = pItemDate;
 
         // Create 'NEW' sticker
-        CGUILabel*& pLabel = m_pNewsItemNEWLabels[i];
-        pLabel = reinterpret_cast<CGUILabel*>(pManager->CreateLabel(m_pCanvas, "NEW"));
-        pLabel->SetFont("default-small");
-        pLabel->SetTextColor(255, 0, 0);
-        pLabel->AutoSize(pLabel->GetText().c_str());
-        pLabel->SetAlpha(0.7f);
-        pLabel->SetVisible(false);
-    }
+   //     CGUILabel*& pLabel = m_pNewsItemNEWLabels[i];
+   //     pLabel = reinterpret_cast<CGUILabel*>(pManager->CreateLabel(m_pCanvas, "NEW"));
+    //    pLabel->SetFont("default-small");
+    //    pLabel->SetTextColor(255, 0, 0);
+    //    pLabel->AutoSize(pLabel->GetText().c_str());
+    //    pLabel->SetAlpha(0.7f);
+    //    pLabel->SetVisible(false);
+   // }//
 
     m_pLogo->MoveToBack();
 
@@ -347,8 +347,8 @@ CMainMenu::~CMainMenu()
     delete m_pFiller;
     delete m_pFiller2;
     delete m_pLogo;
-    delete m_pLatestNews;
-    delete m_pVersion;
+    //delete m_pLatestNews;
+    //delete m_pVersion;
     delete m_pMenuArea;
 
     // Destroy the menu items. Note: The disconnect item isn't always in the
@@ -450,6 +450,13 @@ void CMainMenu::Update()
 
     if (m_bIsFullyVisible)
     {
+        static bool versionUpdaterChecked = false;
+        if (!versionUpdaterChecked)
+        {
+            versionUpdaterChecked = true;
+            GetVersionUpdater()->OnMainMenuFullyVisible();
+        }
+
         // Grab our cursor position
         tagPOINT cursor;
         GetCursorPos(&cursor);
@@ -635,7 +642,7 @@ void CMainMenu::Update()
 
         // Create headlines while the screen is still black
         if (WaitForMenu == 250)
-            m_pNewsBrowser->CreateHeadlines();
+           // m_pNewsBrowser->CreateHeadlines();
 
         // Start updater after fade up is complete
         if (WaitForMenu == 275)
@@ -1080,52 +1087,52 @@ bool CMainMenu::SetItemHoverProgress(sMenuItem* pItem, float fProgress, bool bHo
 
 void CMainMenu::SetNewsHeadline(int iIndex, const SString& strHeadline, const SString& strDate, bool bIsNew)
 {
-    if (iIndex < 0 || iIndex > 2)
-        return;
+  //  if (iIndex < 0 || iIndex > 2)
+ //       return;
 
-    m_pLatestNews->SetVisible(true);
+ //   m_pLatestNews->SetVisible(true);
 
     // Headline
-    CGUILabel* pItem = m_pNewsItemLabels[iIndex];
-    CGUILabel* pItemShadow = m_pNewsItemShadowLabels[iIndex];
-    SColor     color = headlineColors[iIndex];
-    pItem->SetTextColor(color.R, color.G, color.B);
-    pItem->SetText(strHeadline);
-    pItemShadow->SetText(strHeadline);
+  //  CGUILabel* pItem = m_pNewsItemLabels[iIndex];
+  //  CGUILabel* pItemShadow = m_pNewsItemShadowLabels[iIndex];
+  //  SColor     color = headlineColors[iIndex];
+  //  pItem->SetTextColor(color.R, color.G, color.B);
+  //  pItem->SetText(strHeadline);
+  //  pItemShadow->SetText(strHeadline);
 
     // Switch font if it's too big
-    if (pItem->GetSize(false).fX < pItem->GetTextExtent())
-    {
-        const char* szFontName = "default-bold-small";
-        for (char i = 0; i < CORE_MTA_NEWS_ITEMS; i++)
-        {
+   // if (pItem->GetSize(false).fX < pItem->GetTextExtent())
+  //  {
+   //     const char* szFontName = "default-bold-small";
+  //      for (char i = 0; i < CORE_MTA_NEWS_ITEMS; i++)
+    //    {
             // Try default-bold-small first, if that's too big use default-small
-            m_pNewsItemLabels[i]->SetFont(szFontName);
-            m_pNewsItemShadowLabels[i]->SetFont(szFontName);
-            if (strcmp(szFontName, "default-small") && (m_pNewsItemLabels[i]->GetSize(false).fX < m_pNewsItemLabels[i]->GetTextExtent()))
-            {
-                szFontName = "default-small";
-                i = -1;
-            }
-        }
-    }
+  //          m_pNewsItemLabels[i]->SetFont(szFontName);
+   //         m_pNewsItemShadowLabels[i]->SetFont(szFontName);
+   //         if (strcmp(szFontName, "default-small") && (m_pNewsItemLabels[i]->GetSize(false).fX < m_pNewsItemLabels[i]->GetTextExtent()))
+    //        {
+  //              szFontName = "default-small";
+    //            i = -1;
+    //        }
+   //     }
+   // }
 
     // Set our Date labels
-    CGUILabel* pItemDate = m_pNewsItemDateLabels[iIndex];
-    pItemDate->SetText(strDate);
+  //  CGUILabel* pItemDate = m_pNewsItemDateLabels[iIndex];
+   // pItemDate->SetText(strDate);
 
     // 'NEW' sticker
-    CGUILabel* pNewLabel = m_pNewsItemNEWLabels[iIndex];
-    pNewLabel->SetVisible(bIsNew);
-    pNewLabel->SetPosition(CVector2D(pItem->GetPosition().fX + 4, pItem->GetPosition().fY - 4));
+  //  CGUILabel* pNewLabel = m_pNewsItemNEWLabels[iIndex];
+   // pNewLabel->SetVisible(bIsNew);
+   // pNewLabel->SetPosition(CVector2D(pItem->GetPosition().fX + 4, pItem->GetPosition().fY - 4));
 }
 
 void CMainMenu::ReloadNews()
 {
-    delete m_pNewsBrowser;
-    m_pNewsBrowser = new CNewsBrowser();
-    m_pNewsBrowser->CreateHeadlines();
-    m_pNewsBrowser->SetVisible(true);
+   // delete m_pNewsBrowser;
+  //  m_pNewsBrowser = new CNewsBrowser();
+  //  m_pNewsBrowser->CreateHeadlines();
+  //  m_pNewsBrowser->SetVisible(true);
 }
 
 /////////////////////////////////////////////////////////////
