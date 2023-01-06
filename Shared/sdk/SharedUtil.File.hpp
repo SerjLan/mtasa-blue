@@ -510,6 +510,7 @@ SString SharedUtil::GetMTADataPath()
 
 SString SharedUtil::GetMTADataPathCommon()
 {
+    MkDir(PathJoin(GetSystemCommonAppDataPath(), GetProductCommonDataDir(), "Common"));
     return PathJoin(GetSystemCommonAppDataPath(), GetProductCommonDataDir(), "Common");
 }
 
