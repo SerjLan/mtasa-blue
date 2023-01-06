@@ -84,7 +84,7 @@ CChat::CChat(CGUI* pManager, const CVector2D& vecPosition)
     m_pInput->SetSize(m_vecInputSize);
     m_pInput->SetEnabled(false);
     m_pInput->SetVisible(false);
-    SetInputPrefix("Say: ");
+    SetInputPrefix("Скажи: ");
 
     // Load cvars and position the GUI
     LoadCVars();
