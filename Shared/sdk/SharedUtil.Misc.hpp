@@ -58,7 +58,7 @@ CDuplicateLineFilter<SReportLine> ms_ReportLineFilter;
 #ifdef MTA_CLIENT
 
 #define PRODUCT_REGISTRY_PATH       "Software\\Multi Theft Auto: GTASiberia All"       // HKLM
-#define PRODUCT_COMMON_DATA_DIR     "MTA San Andreas All"                               // C:\ProgramData
+#define PRODUCT_COMMON_DATA_DIR     "MTA GTASiberia All"                               // C:\ProgramData
 #define TROUBLE_URL1 "http://updatesa.multitheftauto.com/sa/trouble/?v=_VERSION_&id=_ID_&tr=_TROUBLE_"
 
     //
@@ -134,7 +134,7 @@ SString SharedUtil::GetMTASABaseDir()
             strInstallRoot = GetRegistryValue("", "Last Run Location");
             if (strInstallRoot.empty())
             {
-                MessageBoxUTF8(0, _("Multi Theft Auto has not been installed properly, please reinstall."), _("Error") + _E("U01"),
+                MessageBoxUTF8(0, _("Multi Theft Auto не был установлен должным образом, переустановите."), _("Error") + _E("U01"),
                                MB_OK | MB_ICONERROR | MB_TOPMOST);
                 TerminateProcess(GetCurrentProcess(), 9);
             }
@@ -681,7 +681,7 @@ bool SharedUtil::ProcessPendingBrowseToSolution()
 
     ClearPendingBrowseToSolution();
 
-    SString strTitle("MTA: San Andreas %s   (CTRL+C to copy)", *strErrorCode);
+    SString strTitle("MTA: GTASiberia %s   (CTRL+C to copy)", *strErrorCode);
     // Show message if set, ask question if required, and then launch URL
     if (iFlags & ASK_GO_ONLINE)
     {

@@ -201,10 +201,10 @@ void HandleDuplicateLaunching()
     {
         if (strcmp(lpCmdLine, "") != 0)
         {
-            HWND hwMTAWindow = FindWindow(NULL, "MTA: San Andreas");
+            HWND hwMTAWindow = FindWindow(NULL, "MTA: GTASiberia");
 #ifdef MTA_DEBUG
             if (hwMTAWindow == NULL)
-                hwMTAWindow = FindWindow(NULL, "MTA: San Andreas [DEBUG]");
+                hwMTAWindow = FindWindow(NULL, "MTA: GTASiberia [DEBUG]");
 #endif
             if (hwMTAWindow != NULL)
             {
@@ -308,7 +308,7 @@ void HandleResetSettings()
 
     CheckAndShowMissingFileMessage();
 
-    SString strSaveFilePath = PathJoin(GetSystemPersonalPath(), "GTA San Andreas User Files");
+    SString strSaveFilePath = PathJoin(GetSystemPersonalPath(), "GTA GTASiberia User Files");
     SString strSettingsFilename = PathJoin(strSaveFilePath, "gta_sa.set");
     SString strSettingsFilenameBak = PathJoin(strSaveFilePath, "gta_sa_old.set");
 

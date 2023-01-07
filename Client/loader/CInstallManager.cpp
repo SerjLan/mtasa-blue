@@ -338,7 +338,7 @@ SString CInstallManager::_ChangeToAdmin()
     {
         MessageBoxUTF8(
             NULL, SString(_("MTA:SA needs Administrator access for the following task:\n\n  '%s'\n\nPlease confirm in the next window."), *m_strAdminReason),
-            "Multi Theft Auto: San Andreas", MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
+            "Multi Theft Auto: GTASiberia", MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
         SetIsBlockingUserProcess();
         ReleaseSingleInstanceMutex();
         if (ShellExecuteBlocking("runas", GetLauncherPathFilename(), GetSequencerSnapshot()))
@@ -353,7 +353,7 @@ SString CInstallManager::_ChangeToAdmin()
         CreateSingleInstanceMutex();
         ClearIsBlockingUserProcess();
         MessageBoxUTF8(NULL, SString(_("MTA:SA could not complete the following task:\n\n  '%s'\n"), *m_strAdminReason),
-                       "Multi Theft Auto: San Andreas" + _E("CL01"), MB_OK | MB_ICONWARNING | MB_TOPMOST);
+                       "Multi Theft Auto: GTASiberia" + _E("CL01"), MB_OK | MB_ICONWARNING | MB_TOPMOST);
     }
     return "fail";
 }
@@ -537,7 +537,7 @@ SString CInstallManager::_ShowCopyFailDialog()
 
 void ShowLayoutError(const SString& strExtraInfo)
 {
-    MessageBoxUTF8(0, SString(_("Multi Theft Auto has not been installed properly, please reinstall. %s"), *strExtraInfo), _("Error") + _E("CL03"),
+    MessageBoxUTF8(0, SString(_("Multi Theft Auto не был установлен должным образом, переустановите. %s"), *strExtraInfo), _("Error") + _E("CL03"),
                    MB_OK | MB_ICONERROR | MB_TOPMOST);
     TerminateProcess(GetCurrentProcess(), 9);
 }
@@ -687,7 +687,7 @@ SString CInstallManager::_ProcessLayoutChecks()
         SetRegistryValue("testkeypath", "testname", strValue);
         SString strValueCheck = GetRegistryValue("testkeypath", "testname");
         if (strValueCheck != strValue)
-            ShowLayoutError("[Registry key not writable]");            // Can't write reg key
+            ShowLayoutError("[Registry key not writable] Требуются права Администратора");            // Can't write reg key
 
         RemoveRegistryKey("testkeypath");
     }
@@ -714,7 +714,7 @@ SString CInstallManager::_ProcessLayoutChecks()
         const char* folders[] = {"news", "temp", "upcache"};
         for (uint i = 0; i < NUMELMS(folders); i++)
         {
-            SString strSrc = PathJoin(GetSystemLocalAppDataPath(), "MTA San Andreas " + GetMajorVersionString(), folders[i]);
+            SString strSrc = PathJoin(GetSystemLocalAppDataPath(), "MTA GTASiberia " + GetMajorVersionString(), folders[i]);
             SString strDest = PathJoin(GetMTADataPath(), folders[i]);
             if (!DirectoryExists(strDest) && DirectoryExists(strSrc))
                 MoveFile(strSrc, strDest);
@@ -787,7 +787,7 @@ SString CInstallManager::_ProcessLangFileChecks()
     const char* langFileNames[] = {"american.gxt", "french.gxt", "german.gxt", "italian.gxt", "spanish.gxt"};
 
     // Get language that will be used
-    SString strSettingsFilename = PathJoin(GetSystemPersonalPath(), "GTA San Andreas User Files", "gta_sa.set");
+    SString strSettingsFilename = PathJoin(GetSystemPersonalPath(), "GTASiberia User Files", "gta_sa.set");
     FILE*   fh = File::Fopen(strSettingsFilename, "rb");
     if (fh)
     {
@@ -825,7 +825,7 @@ SString CInstallManager::_ProcessLangFileChecks()
         strMessage += PathJoin(strTextFilePath, langFileNames[0]);
         strMessage += "\n\n";
         strMessage += _("If MTA fails to load, please re-install GTA:SA");
-        MessageBoxUTF8(NULL, strMessage, "Multi Theft Auto: San Andreas", MB_OK | MB_ICONWARNING | MB_TOPMOST);
+        MessageBoxUTF8(NULL, strMessage, "Multi Theft Auto: GTASiberia", MB_OK | MB_ICONWARNING | MB_TOPMOST);
         return "ok";
     }
 

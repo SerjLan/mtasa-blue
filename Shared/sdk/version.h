@@ -24,9 +24,9 @@
 //      2. Use net.dll/net.so from the latest unstable (nightly.mtasa.com)
 
 // New version info
-#define MTASA_VERSION_MAJOR         5
-#define MTASA_VERSION_MINOR         0
-#define MTASA_VERSION_MAINTENANCE   0
+#define MTASA_VERSION_MAJOR         1
+#define MTASA_VERSION_MINOR         5
+#define MTASA_VERSION_MAINTENANCE   9
 #define MTASA_VERSION_TYPE          VERSION_TYPE_UNSTABLE
 #define MTASA_VERSION_BUILD         21513
 
