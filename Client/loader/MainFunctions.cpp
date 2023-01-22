@@ -201,10 +201,10 @@ void HandleDuplicateLaunching()
     {
         if (strcmp(lpCmdLine, "") != 0)
         {
-            HWND hwMTAWindow = FindWindow(NULL, "MTA: GTASiberia");
+            HWND hwMTAWindow = FindWindow(NULL, "MTA: GTA Siberia");
 #ifdef MTA_DEBUG
             if (hwMTAWindow == NULL)
-                hwMTAWindow = FindWindow(NULL, "MTA: GTASiberia [DEBUG]");
+                hwMTAWindow = FindWindow(NULL, "MTA: GTA Siberia [DEBUG]");
 #endif
             if (hwMTAWindow != NULL)
             {
