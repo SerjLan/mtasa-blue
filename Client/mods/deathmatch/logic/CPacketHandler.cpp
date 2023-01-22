@@ -2293,7 +2293,7 @@ void CPacketHandler::Packet_MapInfo(NetBitStreamInterface& bitStream)
     // Apply world sea level (to world sea level water only)
     g_pClientGame->GetManager()->GetWaterManager()->SetWorldWaterLevel(fSeaLevel, nullptr, false, true, false);
 
-    unsigned short usFPSLimit = 36;
+    unsigned short usFPSLimit = 60;
     bitStream.ReadCompressed(usFPSLimit);
     g_pCore->RecalculateFrameRateLimit(usFPSLimit);
 
