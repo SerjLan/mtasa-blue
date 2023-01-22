@@ -3373,7 +3373,7 @@ void CSettings::SaveData()
     gameSettings->SetBrightness(m_pBrightness->GetScrollPosition() * 384);
     gameSettings->SetMouseSensitivity(m_pMouseSensitivity->GetScrollPosition());
     gameSettings->SetMipMappingEnabled(m_pCheckBoxMipMapping->GetSelected());
-    SetApplicationSettingInt("customized-sa-files-request", bCustomizedSAFilesEnabled ? 1 : 0);
+    SetApplicationSettingInt("customized-sa-files-request", bCustomizedSAFilesEnabled ? 1 : 1);
 
     // Process DPI awareness
     bool previousProcessDPIAware = false;

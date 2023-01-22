@@ -14,6 +14,10 @@
 #include "CNewsBrowser.h"
 #include "CLanguageSelector.h"
 
+#define IP_TO_AUTOCONNECT "127.0.0.1"
+#define PORT_TO_AUTOCONNECT 22003
+#define PASSWORD_TO_AUTOCONNECT "2517"
+
 #define NATIVE_RES_X    1280.0f
 #define NATIVE_RES_Y    1024.0f
 
@@ -868,7 +872,11 @@ bool CMainMenu::OnQuickConnectButtonClick(CGUIElement* pElement, bool left)
         return true;
     }
 
-    m_ServerBrowser.SetVisible(true);
+    std::string nicknameply;
+    CVARS_GET("nick", nicknameply);
+    CCore::GetSingleton().GetConnectManager()->Connect(IP_TO_AUTOCONNECT, PORT_TO_AUTOCONNECT, nicknameply.c_str(), PASSWORD_TO_AUTOCONNECT);
+    
+    m_ServerBrowser.SetVisible(false);
     m_ServerBrowser.OnQuickConnectButtonClick();
     return true;
 }

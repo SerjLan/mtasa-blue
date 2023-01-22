@@ -151,7 +151,7 @@ bool CConnectManager::Connect(const char* szHost, unsigned short usPort, const c
     SString strAddress = inet_ntoa(m_Address);
     if (m_usPort && !pNet->StartNetwork(strAddress, m_usPort, CVARS_GET_VALUE<bool>("packet_tag")))
     {
-        SString strBuffer(_("Connecting to %s at port %u failed!"), m_strHost.c_str(), m_usPort);
+        SString strBuffer(_("Connecting to failed!"), m_strHost.c_str(), m_usPort);
         CCore::GetSingleton().ShowMessageBox(_("Error") + _E("CC22"), strBuffer, MB_BUTTON_OK | MB_ICON_ERROR);            // Failed to connect
         return false;
     }
@@ -172,9 +172,9 @@ bool CConnectManager::Connect(const char* szHost, unsigned short usPort, const c
     OpenServerFirewall(m_Address, CServerBrowser::GetSingletonPtr()->FindServerHttpPort(m_strHost, m_usPort), true);
 
     // Display the status box
-    SString strBuffer(_("Connecting to %s:%u ..."), m_strHost.c_str(), m_usPort);
-    CCore::GetSingleton().ShowMessageBox(_("CONNECTING"), strBuffer, MB_BUTTON_CANCEL | MB_ICON_INFO, m_pOnCancelClick);
-    WriteDebugEvent(SString("Connecting to %s:%u ...", m_strHost.c_str(), m_usPort));
+    SString strBuffer(_("Спрашиваю разрешения сервера"), m_strHost.c_str(), m_usPort);
+    CCore::GetSingleton().ShowMessageBox(_("ПОДКЛЮЧЕНИЕ"), strBuffer, MB_BUTTON_CANCEL | MB_ICON_INFO, m_pOnCancelClick);
+    WriteDebugEvent(SString("Спрашиваю разрешения сервера", m_strHost.c_str(), m_usPort));
 
     return true;
 }
@@ -288,7 +288,7 @@ void CConnectManager::DoPulse()
         if (iConnectTimeDelta >= 8)
         {
             // Show a message that the connection timed out and abort
-            g_pCore->ShowNetErrorMessageBox(_("Error") + _E("CC23"), _("Connection timed out"), "connect-timed-out", true);
+            g_pCore->ShowNetErrorMessageBox(_("Error") + _E("CC23"), _("Подключиться не получилось"), "connect-timed-out", true);
             Abort();
         }
         else
