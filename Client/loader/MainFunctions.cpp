@@ -874,24 +874,49 @@ void CheckDataFiles()
         bool bFoundInMTADir = !FindFiles(PathJoin(strMTASAPath, "mta", "*.asi"), true, false).empty();
 		if (bFoundInGTADir || bFoundInMTADir)
         {
-		struct
-		{
-			const char* szMd5Asi;
-			const char* szFilenameAsi;
-		} integrityCheckListAsi[] = {{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"}
-		//{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"}
-		};
-		
-			for (int i = 0; i < NUMELMS(integrityCheckListAsi); i++)
+			struct
 			{
-				SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, integrityCheckListAsi[i].szFilenameAsi));
-				if (!strMd5.CompareI(integrityCheckListAsi[i].szMd5Asi))
+				const char* szMd5Asi;
+				const char* szFilenameAsi;
+			} integrityCheckListAsi[] = {
+				{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"}
+				//{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"}
+				};
+				
+			std::vector<SString> foundInGTADirAsi = FindFiles(PathJoin(strGTAPath, "*.asi"), true, false);
+			for (uint i = 0; i < foundInGTADirAsi.size(); i++)
+			{
+				const SString& strPrivateFilename = foundInGTADirAsi[i];
+				for (const auto& item : integrityCheckListAsi)
 				{
-					DisplayErrorMessageBox(_("Файлы .asi модифицированны\n\nСкачайте занова игру."), _E("CL30"),
-										   "maybe-virus2");
-					break;
+					SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, strPrivateFilename));
+					if (!strMd5.CompareI(item.szMd5Asi) || strPrivateFilename != item.szFilenameAsi)
+					{
+						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strGTAPath+strPrivateFilename);
+						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+						return ExitProcess(EXIT_ERROR);
+						break;
+					}
 				}
 			}
+			
+			std::vector<SString> foundInMTADirAsi = FindFiles(PathJoin(strMTASAPath, "mta", "*.asi"), true, false);
+			for (uint i = 0; i < foundInMTADirAsi.size(); i++)
+			{
+				const SString& strPrivateFilename = foundInMTADirAsi[i];
+				for (const auto& item : integrityCheckListAsi)
+				{
+					SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strMTASAPath, "mta", strPrivateFilename));
+					if (!strMd5.CompareI(item.szMd5Asi) || strPrivateFilename != item.szFilenameAsi)
+					{
+						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл в МТА: "),strPrivateFilename);
+						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+						return ExitProcess(EXIT_ERROR);
+						break;
+					}
+				}
+			}
+			
 		}
 	}
 
