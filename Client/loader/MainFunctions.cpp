@@ -889,10 +889,10 @@ void CheckDataFiles()
 				const SString& strPrivateFilename = foundInGTADirAsi[i];
 				for (const auto& item : integrityCheckListAsi)
 				{
-					SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, strPrivateFilename));
-					if (!strMd5.CompareI(item.szMd5Asi) || strPrivateFilename != item.szFilenameAsi)
+					SString filePath = PathJoin(strGTAPath, strPrivateFilename);
+					if (FileExists(filePath))
 					{
-						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strGTAPath+strPrivateFilename);
+						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strPrivateFilename);
 						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
 						return ExitProcess(EXIT_ERROR);
 						break;
