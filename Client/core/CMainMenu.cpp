@@ -14,8 +14,8 @@
 #include "CNewsBrowser.h"
 #include "CLanguageSelector.h"
 
-#define IP_TO_AUTOCONNECT "127.0.0.1"
-#define PORT_TO_AUTOCONNECT 22003
+#define IP_TO_AUTOCONNECT "45.67.230.66"
+#define PORT_TO_AUTOCONNECT 23017
 #define PASSWORD_TO_AUTOCONNECT "2517"
 
 #define NATIVE_RES_X    1280.0f
