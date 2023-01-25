@@ -123,7 +123,7 @@ bool CConnectManager::Connect(const char* szHost, unsigned short usPort, const c
 	};  
 	
 	const int portCon[] = { //PORT Сервера
-		22017,
+		22022,
 		22003
 	};
 	
