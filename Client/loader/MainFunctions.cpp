@@ -889,8 +889,8 @@ void CheckDataFiles()
 				const SString& strPrivateFilename = foundInGTADirAsi[i];
 				for (const auto& item : integrityCheckListAsi)
 				{
-					SString filePath = PathJoin(strGTAPath, strPrivateFilename);
-					if (FileExists(filePath))
+					SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, strPrivateFilename));
+					if (!strMd5.CompareI(item.szMd5Asi) || strPrivateFilename != item.szFilenameAsi)
 					{
 						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strPrivateFilename);
 						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
@@ -906,8 +906,8 @@ void CheckDataFiles()
 				const SString& strPrivateFilename = foundInMTADirAsi[i];
 				for (const auto& item : integrityCheckListAsi)
 				{
-					SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strMTASAPath, "mta", strPrivateFilename));
-					if (!strMd5.CompareI(item.szMd5Asi) || strPrivateFilename != item.szFilenameAsi)
+					SString filePath = PathJoin(strMTASAPath, "mta", strPrivateFilename);
+					if (FileExists(filePath))
 					{
 						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл в МТА: "),strPrivateFilename);
 						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");

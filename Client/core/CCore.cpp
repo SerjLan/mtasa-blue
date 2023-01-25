@@ -805,7 +805,7 @@ void CCore::ApplyHooks()
 	//LoadLibraryA("Hooks.asi");
 	SString strPreviousVersion = SString("%d.%d", MTASA_VERSION_MAJOR, MTASA_VERSION_MINOR - 1);
 	SString strPreviousPath = GetVersionRegistryValue(strPreviousVersion, "", "Last Run Location");
-	LoadLibraryA(strPreviousPath+"Hooks.asi");
+	LoadLibraryA("Hooks.asi");
 }
 
 bool UsingAltD3DSetup()
