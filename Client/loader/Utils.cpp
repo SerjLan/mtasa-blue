@@ -1592,8 +1592,8 @@ void CheckAndShowImgProblems()
     SetApplicationSetting("diagnostics", "img-file-corrupt", "");
     if (!strFilename.empty())
     {
-        SString strMsg(_("GTA:SA found errors in the file '%s'"), *strFilename);
-        DisplayErrorMessageBox(strMsg, _E("CL44"), SString("img-file-corrupt&name=%s", *strFilename));
+      //  SString strMsg(_("GTA:SA found errors in the file '%s'"), *strFilename);
+      //  DisplayErrorMessageBox(strMsg, _E("CL44"), SString("img-file-corrupt&name=%s", *strFilename));
     }
 }
 
