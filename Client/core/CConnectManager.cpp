@@ -124,6 +124,7 @@ bool CConnectManager::Connect(const char* szHost, unsigned short usPort, const c
 	
 	const int portCon[] = { //PORT Сервера
 		22022,
+		22023,
 		22003
 	};
 	
