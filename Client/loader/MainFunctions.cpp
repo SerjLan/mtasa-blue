@@ -807,6 +807,18 @@ void CheckDataFiles()
             return ExitProcess(EXIT_ERROR);
         }
     }
+	
+		//Проверка мода гта сибирь//////////////////////////////////////////////////////////////////////////
+	 const char* sibCheckList[] = {"Launcher.exe", "models/gtasib1.img", "models/meloch.img", "Hooks.asi"};
+		for (int i = 0; i < NUMELMS(sibCheckList); i++)
+		{
+			if (!FileExists(PathJoin(strGTAPath, sibCheckList[i])))
+			{
+				DisplayErrorMessageBox(SString(_("Ошибка загрузки мода ГТАСИБИРЬ. %s установите мод по указанному пути. Подробности на сайте gtasiberia.ru."), strGTAPath.c_str()), _E("CL20"), "gta_sa-missing");
+				return ExitProcess(EXIT_ERROR);
+			}
+		}
+
 
     // Check main exe has the correct name
     if (GetLaunchFilename().CompareI(MTA_EXE_NAME) == false)
