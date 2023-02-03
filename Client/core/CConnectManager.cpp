@@ -119,6 +119,7 @@ bool CConnectManager::Connect(const char* szHost, unsigned short usPort, const c
 	// Ограничения айди серверов при подключении
     const string ipCon[] = { //IP Сервера
 		"45.67.230.66",
+		"45.67.230.66",
 		"127.0.0.1"
 	};  
 	

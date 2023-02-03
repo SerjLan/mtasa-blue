@@ -103,6 +103,7 @@ public:
     void SetNextHistoryText(bool bDown);
 
     void OnQuickConnectButtonClick();
+    void OnQuickConnectButtonClickZbt();
     void NotifyServerExists(in_addr Address, ushort usPort);
 
     void TabSkip(bool bBackwards);

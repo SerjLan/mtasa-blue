@@ -83,6 +83,7 @@ private:
     bool OnMenuExit(CGUIElement* pElement);
     bool OnMenuClick(CGUIMouseEventArgs Args);
     bool OnQuickConnectButtonClick(CGUIElement* pElement, bool left);
+    bool OnQuickConnectButtonClickZbt(CGUIElement* pElement, bool left);
     bool OnResumeButtonClick(CGUIElement* pElement);
     bool OnBrowseServersButtonClick(CGUIElement* pElement);
     bool OnHostGameButtonClick();
@@ -188,6 +189,7 @@ private:
     {
         MENU_ITEM_DISCONNECT,
         MENU_ITEM_QUICK_CONNECT,
+        MENU_ITEM_QUICK_CONNECTZBT,
         MENU_ITEM_BROWSE_SERVERS,
         MENU_ITEM_HOST_GAME,
         MENU_ITEM_MAP_EDITOR,

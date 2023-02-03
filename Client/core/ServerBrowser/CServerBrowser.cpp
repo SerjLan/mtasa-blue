@@ -2293,6 +2293,26 @@ void CServerBrowser::OnQuickConnectButtonClick()
     //m_pComboAddressHistory[ServerBrowserTypes::LAN]->ShowDropList();
 }
 
+void CServerBrowser::OnQuickConnectButtonClickZbt()
+{
+    // Show help text
+    if (m_uiShownQuickConnectHelpCount < 1)
+    {
+        //m_pQuickConnectHelpWindow->SetVisible(true);
+        //m_pQuickConnectHelpWindow->BringToFront();
+        //m_uiShownQuickConnectHelpCount++;
+    }
+
+    // Switch to LAN tab, but don't save it as selected
+    if (!m_uiIsUsingTempTab)
+        m_BeforeTempServerBrowserType = GetCurrentServerBrowserType();
+    m_uiIsUsingTempTab = 2;
+    m_pPanel->SetSelectedTab(m_pTab[ServerBrowserTypes::FAVOURITES]);
+
+    // Show history
+    //m_pComboAddressHistory[ServerBrowserTypes::LAN]->ShowDropList();
+}
+
 bool CServerBrowser::OnServerListChangeRow(CGUIKeyEventArgs Args)
 {
     ServerBrowserType Type = GetCurrentServerBrowserType();
