@@ -163,7 +163,7 @@ HRESULT CProxyDirect3D9::CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND 
     #ifdef MTA_DEBUG
     SetWindowTextW(hFocusWindow, MbUTF8ToUTF16("MTA: San Andreas [DEBUG]").c_str());
     #else
-    SetWindowTextW(hFocusWindow, MbUTF8ToUTF16("MTA: GTASiberia").c_str());
+    SetWindowTextW(hFocusWindow, MbUTF8ToUTF16("MTA: San Andreas").c_str());
     #endif
 
     // Detect if second call to CreateDevice

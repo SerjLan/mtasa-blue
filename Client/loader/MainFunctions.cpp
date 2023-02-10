@@ -9,7 +9,13 @@
  *****************************************************************************/
 
 #include "StdInc.h"
+#include "MainFunctions.h"
+#include "Main.h"
+#include "Utils.h"
+#include "Dialogs.h"
+#include "D3DStuff.h"
 #include <array>
+#include <locale.h>
 
 DECLARE_ENUM(WSC_SECURITY_PROVIDER_HEALTH)
 IMPLEMENT_ENUM_BEGIN(WSC_SECURITY_PROVIDER_HEALTH)
@@ -1038,7 +1044,7 @@ void CheckLibVersions()
                                 "MTA\\netc.dll",
                                 "MTA\\xmll.dll",
                                 "MTA\\game_sa.dll",
-                                "MTA\\mtasa.dll",
+                                "MTA\\" LOADER_PROXY_DLL_NAME,
                                 "mods\\deathmatch\\client.dll",
                                 "mods\\deathmatch\\pcre3.dll"};
     SString     strReqFileVersion;
@@ -1162,7 +1168,8 @@ int LaunchGame(SString strCmdLine)
     const SString strGTAPath = GetGTAPath();
     const SString strMTASAPath = GetMTASAPath();
     SString       strMtaDir = PathJoin(strMTASAPath, "mta");
-
+    SString       strGTAEXEPath = GetGameExecutablePath().string();
+	
     SetDllDirectory(strMtaDir);
     if (!CheckService(CHECK_SERVICE_PRE_CREATE) && !IsUserAdmin())
     {
@@ -1175,8 +1182,8 @@ int LaunchGame(SString strCmdLine)
     LogSettings();
 
     // Use renamed exe if required
-    SString strGTAEXEPath = GetInstallManager()->MaybeRenameExe(strGTAPath);
-    SetCurrentDirectory(strGTAPath);
+    //SString strGTAEXEPath = GetInstallManager()->MaybeRenameExe(strGTAPath);
+    //SetCurrentDirectory(strGTAPath);
 
     WatchDogBeginSection("L2");                                     // Gets closed when loading screen is shown
     WatchDogBeginSection("L3");                                     // Gets closed when loading screen is shown, or a startup problem is handled elsewhere
@@ -1197,7 +1204,7 @@ int LaunchGame(SString strCmdLine)
     PROCESS_INFORMATION piLoadee = {0};
     DWORD               dwError;
     SString             strErrorContext;
-    if (FALSE == StartGtaProcess(strGTAEXEPath, strCmdLine, strMtaDir, &piLoadee, dwError, strErrorContext))
+    if (FALSE == StartGtaProcess(strGTAEXEPath, strCmdLine, strGTAPath, &piLoadee, dwError, strErrorContext))
     {
         WriteDebugEvent(SString("Loader - Process not created[%d (%s)]: %s", dwError, *strErrorContext, *strGTAEXEPath));
 
