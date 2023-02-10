@@ -8,7 +8,6 @@
  *
  *****************************************************************************/
 
-#include "StdInc.h"
 #include "MainFunctions.h"
 #include "Main.h"
 #include "Utils.h"

@@ -12,7 +12,6 @@
  *
  *****************************************************************************/
  
-#include "StdInc.h"
 #include "Main.h"
 #include "CInstallManager.h"
 #include "MainFunctions.h"
