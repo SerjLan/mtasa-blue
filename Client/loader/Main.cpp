@@ -1,17 +1,14 @@
 /*****************************************************************************
  *
- *  PROJECT:     Multi Theft Auto v1.0
  *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        loader/Main.cpp
  *  FILE:        Client/loader/Main.cpp
  *  PURPOSE:     MTA loader
  *
- *  Multi Theft Auto is available from http://www.multitheftauto.com/
  *  Multi Theft Auto is available from https://multitheftauto.com/
  *
  *****************************************************************************/
- 
+
 #include "Main.h"
 #include "CInstallManager.h"
 #include "MainFunctions.h"

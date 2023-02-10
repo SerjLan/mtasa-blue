@@ -510,7 +510,7 @@ SString SharedUtil::GetMTADataPath()
 
 SString SharedUtil::GetMTADataPathCommon()
 {
-    MkDir(PathJoin(GetSystemCommonAppDataPath(), GetProductCommonDataDir(), "Common"));
+	MkDir(PathJoin(GetSystemCommonAppDataPath(), GetProductCommonDataDir(), "Common"));
     return PathJoin(GetSystemCommonAppDataPath(), GetProductCommonDataDir(), "Common");
 }
 
@@ -910,6 +910,40 @@ SString SharedUtil::MakeUniquePath(const SString& strInPathFilename)
         strTest = SString("%s_%d%s", strBeforeUniqueChar.c_str(), iCount++, strAfterUniqueChar.c_str());
     }
     return strTest;
+}
+
+// Tries to resolve the original path used for MakeUniquePath
+SString SharedUtil::MakeGenericPath(const SString& uniqueFilePath)
+{
+    if (DirectoryExists(uniqueFilePath) || FileExists(uniqueFilePath))
+        return uniqueFilePath;
+
+    SString basePath, fileName;
+    ExtractFilename(uniqueFilePath, &basePath, &fileName);
+
+    SString withoutExtension, extensionName;
+    bool    usingExtension = ExtractExtension(fileName, &withoutExtension, &extensionName);
+    size_t  underscore = withoutExtension.find_last_not_of("0123456789");
+
+    if (underscore != std::string::npos)
+    {
+        if (withoutExtension[underscore] == '_')
+        {
+            withoutExtension = withoutExtension.SubStr(0, underscore);
+
+            SString filePath;
+
+            if (usingExtension)
+                filePath = PathJoin(basePath, SString("%s.%s", withoutExtension.c_str(), extensionName.c_str()));
+            else
+                filePath = PathJoin(basePath, withoutExtension);
+
+            if (DirectoryExists(filePath) || FileExists(filePath))
+                return filePath;
+        }
+    }
+
+    return {};
 }
 
 // Conform a path string for sorting
