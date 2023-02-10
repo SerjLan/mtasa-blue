@@ -1036,7 +1036,6 @@ void CheckLibVersions()
                                 "MTA\\core.dll",
                                 "MTA\\game_sa.dll",
                                 "MTA\\multiplayer_sa.dll",
-                                "MTA\\netc.dll",
                                 "MTA\\xmll.dll",
                                 "MTA\\game_sa.dll",
                                 "MTA\\" LOADER_PROXY_DLL_NAME,
