@@ -9,6 +9,7 @@
  *
  *****************************************************************************/
 
+#include "StdInc.h"
 #include "CNewsBrowser.h"
 #include <game/CGame.h>
 #include <windowsx.h>
