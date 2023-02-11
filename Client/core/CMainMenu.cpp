@@ -176,7 +176,7 @@ CMainMenu::CMainMenu(CGUI* pManager)
 
     float fBase = 0.613f;
     float fGap = 0.043f;
-    float fButt = 0.480f;
+    float fButt = 0.500f;
     // Our disconnect item is shown/hidden dynamically, so we store it seperately
     m_pDisconnect = CreateItem(MENU_ITEM_DISCONNECT, "menu_disconnect.png", CVector2D(fButt, fBase + fGap * 4));
     m_pDisconnect->image->SetVisible(false);
@@ -201,9 +201,9 @@ CMainMenu::CMainMenu(CGUI* pManager)
     m_iSecondItemCentre = (m_menuItems[1]->image)->GetPosition().fY + fSecondItemSize * 0.5f;
 
     // Store some mouse over bounding box positions
-    m_menuAX = (fButt * m_iMenuSizeX) + m_iXOff - 90;                                                                      // Left side of the items
+    m_menuAX = (fButt * m_iMenuSizeX) + m_iXOff - 80;                                                                      // Left side of the items
     m_menuAY = m_iFirstItemCentre - fFirstItemSize * (CORE_MTA_HOVER_SCALE / CORE_MTA_NORMAL_SCALE) * 0.5f;            // Top side of the items
-    m_menuBX = m_menuAX + ((160 / NATIVE_RES_X) * m_iMenuSizeX);            // Right side of the items. We add the longest picture (browse_servers)
+    m_menuBX = m_menuAX + ((155 / NATIVE_RES_X) * m_iMenuSizeX);            // Right side of the items. We add the longest picture (browse_servers)
     m_menuAY += BODGE_FACTOR_1;
 
     m_pMenuArea = reinterpret_cast<CGUIStaticImage*>(pManager->CreateStaticImage(m_pCanvas));
