@@ -610,7 +610,7 @@ bool CAccountManager::LogIn(CClient* pClient, CClient* pEchoClient, const std::s
     // Tell the player
     if (pEchoClient)
     {
-        pEchoClient->SendEcho("login: You successfully logged in");
+       // pEchoClient->SendEcho("login: You successfully logged in");
     }
 
     // Delete the old account if it was a guest account
