@@ -617,7 +617,7 @@ SString CInstallManager::_PrepareLaunchLocation()
 #endif
 
     // Copy GTA dependencies to our launch directory.
-    for (const char* fileName : {"eax.dll", "ogg.dll", "vorbis.dll", "vorbisFile.dll", "vorbisHooked.dll", "Hooks.asi"})
+    for (const char* fileName : {"eax.dll", "ogg.dll", "vorbis.dll", "vorbisFile.dll", "vorbisHooked.dll", "Hooks.asi", "GUI.fp", "FirstPerson.sp", "msvcr100d.dll"})
     {
         const fs::path sourcePath = gtaDir / fileName;
         const fs::path targetPath = launchDir / fileName;
