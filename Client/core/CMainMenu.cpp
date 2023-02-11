@@ -35,10 +35,10 @@
 #define CORE_MTA_FADER              0.05f // 1/20
 #define CORE_MTA_FADER_CREDITS      0.01f
 
-#define CORE_MTA_HOVER_SCALE        1.0f
-#define CORE_MTA_NORMAL_SCALE       0.6f
-#define CORE_MTA_HOVER_ALPHA        1.0f
-#define CORE_MTA_NORMAL_ALPHA       0.6f
+#define CORE_MTA_HOVER_SCALE        0.7f
+#define CORE_MTA_NORMAL_SCALE       0.5f
+#define CORE_MTA_HOVER_ALPHA        0.7f
+#define CORE_MTA_NORMAL_ALPHA       0.5f
 
 #define CORE_MTA_HIDDEN_ALPHA       0.0f
 #define CORE_MTA_DISABLED_ALPHA     0.4f
@@ -176,7 +176,7 @@ CMainMenu::CMainMenu(CGUI* pManager)
 
     float fBase = 0.613f;
     float fGap = 0.043f;
-    float fButt = 0.488f;
+    float fButt = 0.480f;
     // Our disconnect item is shown/hidden dynamically, so we store it seperately
     m_pDisconnect = CreateItem(MENU_ITEM_DISCONNECT, "menu_disconnect.png", CVector2D(fButt, fBase + fGap * 4));
     m_pDisconnect->image->SetVisible(false);
@@ -201,9 +201,9 @@ CMainMenu::CMainMenu(CGUI* pManager)
     m_iSecondItemCentre = (m_menuItems[1]->image)->GetPosition().fY + fSecondItemSize * 0.5f;
 
     // Store some mouse over bounding box positions
-    m_menuAX = (fButt * m_iMenuSizeX) + m_iXOff;                                                                      // Left side of the items
+    m_menuAX = (fButt * m_iMenuSizeX) + m_iXOff - 90;                                                                      // Left side of the items
     m_menuAY = m_iFirstItemCentre - fFirstItemSize * (CORE_MTA_HOVER_SCALE / CORE_MTA_NORMAL_SCALE) * 0.5f;            // Top side of the items
-    m_menuBX = m_menuAX + ((390 / NATIVE_RES_X) * m_iMenuSizeX);            // Right side of the items. We add the longest picture (browse_servers)
+    m_menuBX = m_menuAX + ((160 / NATIVE_RES_X) * m_iMenuSizeX);            // Right side of the items. We add the longest picture (browse_servers)
     m_menuAY += BODGE_FACTOR_1;
 
     m_pMenuArea = reinterpret_cast<CGUIStaticImage*>(pManager->CreateStaticImage(m_pCanvas));
@@ -216,10 +216,10 @@ CMainMenu::CMainMenu(CGUI* pManager)
     m_pMenuArea->SetMouseEnterHandler(GUI_CALLBACK(&CMainMenu::OnMenuEnter, this));
     m_pMenuArea->SetMouseLeaveHandler(GUI_CALLBACK(&CMainMenu::OnMenuExit, this));
 
-    float fDrawSizeX = (335 / NATIVE_RES_X) * m_iMenuSizeX;            // Right aligned
-    float fDrawSizeY = (53 / NATIVE_RES_Y) * m_iMenuSizeY;
-    float fDrawPosX = 0.83f * m_iMenuSizeX - fDrawSizeX;
-    float fDrawPosY = 0.60f * m_iMenuSizeY;
+   // float fDrawSizeX = (335 / NATIVE_RES_X) * m_iMenuSizeX;            // Right aligned
+   // float fDrawSizeY = (53 / NATIVE_RES_Y) * m_iMenuSizeY;
+   // float fDrawPosX = 0.83f * m_iMenuSizeX - fDrawSizeX;
+   // float fDrawPosY = 0.60f * m_iMenuSizeY;
    // m_pLatestNews = reinterpret_cast<CGUIStaticImage*>(pManager->CreateStaticImage());
    // m_pLatestNews->LoadFromFile(CORE_MTA_LATEST_NEWS);
    // m_pLatestNews->SetParent(m_pCanvas);
@@ -1109,7 +1109,7 @@ bool CMainMenu::SetItemHoverProgress(sMenuItem* pItem, float fProgress, bool bHo
     int iSizeY = (pItem->nativeSizeY / NATIVE_RES_Y) * m_iMenuSizeY * fTargetScale;
 
     // Aligned to the left horizontally, aligned to the centre vertically
-    int iPosX = pItem->drawPositionX;
+    int iPosX = pItem->drawPositionX - (iSizeX * 0.5);
     int iPosY = (pItem->drawPositionY) - (iSizeY * 0.5);
 
     pItem->image->SetPosition(CVector2D(iPosX, iPosY), false);
