@@ -472,15 +472,22 @@ eClientVehicleType CClientVehicleManager::GetVehicleType(unsigned long ulModel)
 unsigned char CClientVehicleManager::GetMaxPassengerCount(unsigned long ulModel)
 {
     // Use parent model ID for non-standard vehicle model IDs.
-    if ((ulModel < 400 || ulModel > 611) && IsValidModel(ulModel))
-        ulModel = g_pGame->GetModelInfo(ulModel)->GetParentID();
+   // if ((ulModel < 400 || ulModel > 611) && IsValidModel(ulModel))
+       // ulModel = g_pGame->GetModelInfo(ulModel)->GetParentID();
 
     // Valid model?
     if (IsStandardModel(ulModel))
     {
         return g_ucMaxPassengers[ulModel - 400];
     }
-
+    if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        if (sizeof(g_ucMaxPassengers) / sizeof(g_ucMaxPassengers[0]) <= ulModel - 1788)
+        {
+            return 3;
+        }
+        return g_ucMaxPassengers[ulModel - 1788];
+    }
     // Invalid index
     return 0xFF;
 }
@@ -625,41 +632,73 @@ unsigned char CClientVehicleManager::ConvertIndexToGameSeat(unsigned long ulMode
 
 bool CClientVehicleManager::HasTurret(unsigned long ulModel)
 {
+	if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        return false;
+    }
     return (IsStandardModel(ulModel) && (g_ulVehicleAttributes[ulModel - 400] & VEHICLE_HAS_TURRENT));
 }
 
 bool CClientVehicleManager::HasSirens(unsigned long ulModel)
 {
+	if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        return false;
+    }
     return (IsStandardModel(ulModel) && (g_ulVehicleAttributes[ulModel - 400] & VEHICLE_HAS_SIRENS));
 }
 
 bool CClientVehicleManager::HasTaxiLight(unsigned long ulModel)
 {
+	if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        return false;
+    }
     return (IsStandardModel(ulModel) && (g_ulVehicleAttributes[ulModel - 400] & VEHICLE_HAS_TAXI_LIGHTS));
 }
 
 bool CClientVehicleManager::HasSearchLight(unsigned long ulModel)
 {
+	if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        return false;
+    }
     return (IsStandardModel(ulModel) && (g_ulVehicleAttributes[ulModel - 400] & VEHICLE_HAS_SEARCH_LIGHT));
 }
 
 bool CClientVehicleManager::HasLandingGears(unsigned long ulModel)
 {
+	if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        return false;
+    }	
     return (IsStandardModel(ulModel) && (g_ulVehicleAttributes[ulModel - 400] & VEHICLE_HAS_LANDING_GEARS));
 }
 
 bool CClientVehicleManager::HasAdjustableProperty(unsigned long ulModel)
 {
+	if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        return false;
+    }	
     return (IsStandardModel(ulModel) && (g_ulVehicleAttributes[ulModel - 400] & VEHICLE_HAS_ADJUSTABLE_PROPERTY));
 }
 
 bool CClientVehicleManager::HasSmokeTrail(unsigned long ulModel)
 {
+	if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        return false;
+    }	
     return (IsStandardModel(ulModel) && (g_ulVehicleAttributes[ulModel - 400] & VEHICLE_HAS_SMOKE_TRAIL));
 }
 
 bool CClientVehicleManager::HasDamageModel(unsigned long ulModel)
 {
+	if (ulModel >= 2000 && ulModel <= 2200)
+    {
+        return false;
+    }	
     return HasDamageModel(GetVehicleType(ulModel));
 }
 
