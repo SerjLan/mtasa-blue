@@ -581,7 +581,7 @@ bool CVehicleManager::HasSmokeTrail(unsigned int uiModel)
 
 bool CVehicleManager::IsTrailer(unsigned int uiVehicleModel)
 {
-	if (uiModel >= 2000 && uiModel <= 2200)
+    if (uiVehicleModel >= 2000 && uiVehicleModel <= 2200)
     {
         return false;
     }	
@@ -590,7 +590,7 @@ bool CVehicleManager::IsTrailer(unsigned int uiVehicleModel)
 
 bool CVehicleManager::HasDamageModel(unsigned short usModel)
 {
-	if (uiModel >= 2000 && uiModel <= 2200)
+    if (usModel >= 2000 && usModel <= 2200)
     {
         return false;
     }	

@@ -1216,7 +1216,7 @@ SString CInstallManager::_ProcessAppCompatChecks()
         addList.push_back(L"NoDTToDITMouseBatch");
     else
         removeList.push_back(L"NoDTToDITMouseBatch");
-	id execution mode (x86 apps only) - ARM emulation settings.
+   // id execution mode(x86 apps only) - ARM emulation settings.
     if (IsNativeArm64Host())
         addList.push_back(L"ARM64CHPEDISABLED");
     else
