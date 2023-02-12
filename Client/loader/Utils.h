@@ -149,6 +149,10 @@ auto GenerateRandomString(size_t length) -> std::string;
  * @brief Checks if the error code is important enough to be logged.
  */
 bool IsErrorCodeLoggable(const std::error_code& ec);
+/**
+ * @brief Returns true if Windows is running on ARM64 architecture (via emulation).
+*/
+bool IsNativeArm64Host();
 
 // Return false on read failure
 template <class T>
