@@ -921,7 +921,7 @@ void CheckDataFiles()
 				const char* szFilenameAsi;
 			} integrityCheckListAsi[] = {
 				{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"},
-				{"98D7E46F9A898776055972B8101B6C7F", "$fastman92limitAdjuster.asi"}
+				{"E89EA54D6C4C8E162A0EB3CB99B28566", "$fastman92limitAdjuster.asi"}
 				};
 				
 			std::vector<SString> foundInGTADirAsi = FindFiles(PathJoin(strGTAPath, "*.asi"), true, false);
@@ -931,7 +931,7 @@ void CheckDataFiles()
 				for (const auto& item : integrityCheckListAsi)
 				{
 					SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, strPrivateFilename));
-					if (!strMd5.CompareI(item.szMd5Asi) || strPrivateFilename != item.szFilenameAsi)
+					if (!strMd5.CompareI(item.szMd5Asi) && strPrivateFilename == item.szFilenameAsi)
 					{
 						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strPrivateFilename);
 						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
