@@ -839,7 +839,7 @@ void CheckDataFiles()
     }
 	
 		//Проверка мода гта сибирь//////////////////////////////////////////////////////////////////////////
-	 const char* sibCheckList[] = {"Launcher.exe", "models/gtasib1.img", "models/meloch.img", "Hooks.asi", "GUI.fp", "zlib1.dll", "msvcr100d.dll", "MinHook.x86.dll", "DllTricks.dll", "FirstPerson.sp", "$fastman92limitAdjuster.asi"};
+	 const char* sibCheckList[] = {"Launcher.exe", "models/gtasib1.img", "models/meloch.img", "msvcr100d.dll", "Hooks.asi", "GUI.fp", "FirstPerson.sp"};
 		for (int i = 0; i < NUMELMS(sibCheckList); i++)
 		{
 			if (!FileExists(PathJoin(strGTAPath, sibCheckList[i])))
@@ -921,22 +921,32 @@ void CheckDataFiles()
 				const char* szFilenameAsi;
 			} integrityCheckListAsi[] = {
 				{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"},
-				{"E89EA54D6C4C8E162A0EB3CB99B28566", "$fastman92limitAdjuster.asi"}
 				};
 				
 			std::vector<SString> foundInGTADirAsi = FindFiles(PathJoin(strGTAPath, "*.asi"), true, false);
 			for (uint i = 0; i < foundInGTADirAsi.size(); i++)
 			{
-				const SString& strPrivateFilename = foundInGTADirAsi[i];
 				for (const auto& item : integrityCheckListAsi)
 				{
+				const SString& strPrivateFilename = foundInGTADirAsi[i];
 					SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, strPrivateFilename));
-					if (!strMd5.CompareI(item.szMd5Asi) && strPrivateFilename == item.szFilenameAsi)
+					if (strPrivateFilename == item.szFilenameAsi)
 					{
-						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strPrivateFilename);
-						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-						return ExitProcess(EXIT_ERROR);
-						break;
+						if (!strMd5.CompareI(item.szMd5Asi))
+						{
+							SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strPrivateFilename);
+							DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+							return ExitProcess(EXIT_ERROR);
+							break;
+						}
+					}else{
+						if (!strMd5.CompareI(item.szMd5Asi))
+						{
+							SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strPrivateFilename);
+							DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+							return ExitProcess(EXIT_ERROR);
+							break;
+						}
 					}
 				}
 			}
