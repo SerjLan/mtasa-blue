@@ -280,11 +280,11 @@ void CPacketHandler::Packet_ServerConnected(NetBitStreamInterface& bitStream)
     // Echo Connected to the chatbox
     if (szVersionString[0] != '\0')
     {
-         g_pCore->ChatPrintfColor("* Џодключен!", false, CHATCOLOR_INFO, " ѓ’Ђ ‘€Ѓ€ђњ");
+        g_pCore->ChatPrintfColor("* РџРѕРґРєР»СЋС‡РµРЅ!", false, CHATCOLOR_INFO, " Р“РўРђ РЎРР‘РР Р¬");
     }
     else
     {
-        g_pCore->ChatEchoColor("* Џодключен!", CHATCOLOR_INFO);
+        g_pCore->ChatEchoColor("* Connected!", CHATCOLOR_INFO);
     }
 
     // Get the long server version
@@ -362,18 +362,7 @@ void CPacketHandler::Packet_ServerJoined(NetBitStreamInterface& bitStream)
     // and caused protocol error 14 whenever the player count was narrowed down to a single byte.
     uint8_t numPlayers = 0;
     bitStream.Read(numPlayers);
-	
-    // Read out number of players
-    unsigned char ucNumberOfPlayers = 0;
-    bitStream.Read(ucNumberOfPlayers);
 
-    // Can't be 0
-    if (ucNumberOfPlayers == 0)
-    {
-        RaiseProtocolError(14);
-        return;
-    }
-	
     // Read out the root element id
     ElementID RootElementID;
     bitStream.Read(RootElementID);
@@ -1009,8 +998,6 @@ void CPacketHandler::Packet_PlayerList(NetBitStreamInterface& bitStream)
             pPlayer->CallEvent("onClientPlayerJoin", Arguments, true);
         }
     }
-	
-	//g_pClientGame->UpdateDiscordState();
 }
 
 void CPacketHandler::Packet_PlayerQuit(NetBitStreamInterface& bitStream)
@@ -1042,8 +1029,6 @@ void CPacketHandler::Packet_PlayerQuit(NetBitStreamInterface& bitStream)
     {
         RaiseProtocolError(15);
     }
-	
-	//g_pClientGame->UpdateDiscordState();
 }
 
 void CPacketHandler::Packet_PlayerSpawn(NetBitStreamInterface& bitStream)
@@ -3206,14 +3191,9 @@ retry:
                     bitStream.Read(&rotationDegrees);
 
                     // Read out the vehicle value as a char, then convert
-					// редиска тот, кто придумал это в char делать.
-                    // Гильдоновские костыли. Поменял char на short, т.к айди неверный приходил!!!
-                    unsigned short ucModel = 0;
-                    // unsigned char ucModel2 = 0xFF;
-
+                    unsigned char ucModel = 0xFF;
                     bitStream.Read(ucModel);
 
-                    // bitStream.Read(ucModel2);
                     // The server appears to subtract 400 from the vehicle id before
                     // sending it to us, as to allow the value to fit into an unsigned
                     // char.
@@ -3221,37 +3201,14 @@ retry:
                     // Too bad this was never documented.
                     //
                     // --slush
-                    // unsigned short usModel2 = ucModel2;
-                    unsigned short usModel = ucModel;
-                    SString        strLine3("ucModel %u", ucModel);
-                    SString        strLine4("usModel %u", usModel);
-                    // WriteDebugEvent(strLine2);
-                    WriteDebugEvent(strLine3);
-                    WriteDebugEvent(strLine4);
-
-                    if (!(usModel >= 400 && usModel <= 611 || usModel >= 2000 && usModel <= 2200))
+                    unsigned short usModel = ucModel + 400;
+                    if (!CClientVehicleManager::IsValidModel(usModel))
                     {
-                        // SString strLine2("Ошибка протокола 39 , usModel2: %d ", usModel2;
-                        SString strLine("Ћшибка протокола 39 , айди тачки %d (до изменений)", usModel);
-                        // WriteDebugEvent(strLine2);
-                        WriteDebugEvent(strLine);
-
-                        if (usModel + 1788 >= 2000 && usModel + 1788 <= 2200)
-                        {
-                            usModel = usModel + 1788;
-
-                            SString strLine("Ћшибка протокола 39 , айди тачки %d (после изменений)", usModel);
-                            WriteDebugEvent(strLine);
-                        }
-                        else
-                        {
-                            SString strLine("Ћшибка протокола 39 , айди тачки %d (Я СДОХЛА И ВЫЛЕТЕЛА)", usModel);
-                            RaiseEntityAddError(39);
-                            return;
-                        }
+                        RaiseEntityAddError(39);
+                        return;
                     }
-					
-					// Read out the health
+
+                    // Read out the health
                     SVehicleHealthSync health;
                     if (!bitStream.Read(&health))
                     {
@@ -5553,14 +5510,13 @@ SString CPacketHandler::EntityAddDebugRead(NetBitStreamInterface& bitStream)
     ElementID      EntityID;
     unsigned char  ucEntityTypeID;
     ElementID      ParentID;
-	unsigned short usModel = 0;
     unsigned char  ucInterior;
     unsigned short usDimension;
     bool           bCollisonsEnabled;
     bool           bCallPropagationEnabled;
 
     if (bitStream.Read(EntityID) && bitStream.Read(ucEntityTypeID) && bitStream.Read(ParentID) && bitStream.Read(ucInterior) &&
-        bitStream.ReadCompressed(usDimension) && bitStream.ReadBit(bIsAttached) && bitStream.Read(usModel))
+        bitStream.ReadCompressed(usDimension) && bitStream.ReadBit(bIsAttached))
     {
         if (bIsAttached)
         {
@@ -5582,8 +5538,8 @@ SString CPacketHandler::EntityAddDebugRead(NetBitStreamInterface& bitStream)
         unsigned short usNumData = 0;
         bitStream.ReadCompressed(usNumData);
 
-		SString strStatus("ID:%05x Type:%d ParID:%05x Int:%d Dim:%d Attach:%d NumData:%d VehID:%d ", EntityID, ucEntityTypeID, ParentID, ucInterior,
-                          usDimension, bIsAttached, usNumData, usModel);
+        SString strStatus("ID:%05x Type:%d ParID:%05x Int:%d Dim:%d Attach:%d NumData:%d ", EntityID, ucEntityTypeID, ParentID, ucInterior, usDimension,
+                          bIsAttached, usNumData);
 
         for (unsigned short us = 0; us < usNumData; us++)
         {

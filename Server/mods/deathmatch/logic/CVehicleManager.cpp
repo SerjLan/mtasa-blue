@@ -423,25 +423,14 @@ bool CVehicleManager::Exists(CVehicle* pVehicle)
 
 bool CVehicleManager::IsValidModel(unsigned int ulVehicleModel)
 {
-    if (ulVehicleModel >= 400 && ulVehicleModel <= 611)
-    {
-        return true;
-    }
-    if (ulVehicleModel >= 2000 && ulVehicleModel <= 2200)
-    {
-        return true;
-    }
-    return false;
+    return ulVehicleModel >= 400 && ulVehicleModel <= 611;
 }
 
 eVehicleType CVehicleManager::GetVehicleType(unsigned short usModel)
 {
     if (!IsValidModel(usModel))
         return VEHICLE_NONE;
-	
-    if (usModel >= 2000 && usModel <= 2200)
-        return VEHICLE_CAR;
-	
+
     return gs_vehicleTypes[usModel - 400];
 }
 
@@ -454,20 +443,7 @@ unsigned int CVehicleManager::GetMaxPassengers(unsigned int uiVehicleModel)
 {
     if (IsValidModel(uiVehicleModel))
     {
-        if (uiVehicleModel >= 400 && uiVehicleModel <= 611)
-        {
-            return g_ucMaxPassengers[uiVehicleModel - 400];
-        }
-
-        if (uiVehicleModel >= 2000 && uiVehicleModel <= 2200)
-        {
-            if (sizeof(g_ucMaxPassengers) / sizeof(g_ucMaxPassengers[0]) <= uiVehicleModel - 1788)
-            {
-                return 3;
-            }
-
-        return g_ucMaxPassengers[uiVehicleModel-1788];
-        }
+        return g_ucMaxPassengers[uiVehicleModel - 400];
     }
 
     return 0xFF;
@@ -478,10 +454,6 @@ void CVehicleManager::GetRandomVariation(unsigned short usModel, unsigned char& 
     RandomizeRandomSeed();
     ucVariant = 255;
     ucVariant2 = 255;
-	if (usModel >= 2000 && usModel <= 2200)
-    {
-        return;
-    }
     // Valid model?
     if (IsValidModel(usModel) && g_ucVariants[usModel - 400] != 255)
     {
@@ -527,73 +499,41 @@ void CVehicleManager::GetRandomVariation(unsigned short usModel, unsigned char& 
 
 bool CVehicleManager::HasTurret(unsigned int uiModel)
 {
-	if (uiModel >= 2000 && uiModel <= 2200)
-    {
-        return false;
-    }
     return (IsValidModel(uiModel) && (g_ulVehicleAttributes[uiModel - 400] & VEHICLE_HAS_TURRENT));
 }
 
 bool CVehicleManager::HasSirens(unsigned int uiModel)
 {
-	if (uiModel >= 2000 && uiModel <= 2200)
-    {
-        return false;
-    }
     return (IsValidModel(uiModel) && (g_ulVehicleAttributes[uiModel - 400] & VEHICLE_HAS_SIRENS));
 }
 
 bool CVehicleManager::HasTaxiLight(unsigned int uiModel)
 {
-	if (uiModel >= 2000 && uiModel <= 2200)
-    {
-        return false;
-    }	
     return (IsValidModel(uiModel) && (g_ulVehicleAttributes[uiModel - 400] & VEHICLE_HAS_TAXI_LIGHTS));
 }
 
 bool CVehicleManager::HasLandingGears(unsigned int uiModel)
 {
-	if (uiModel >= 2000 && uiModel <= 2200)
-    {
-        return false;
-    }	
     return (IsValidModel(uiModel) && (g_ulVehicleAttributes[uiModel - 400] & VEHICLE_HAS_LANDING_GEARS));
 }
 
 bool CVehicleManager::HasAdjustableProperty(unsigned int uiModel)
 {
-	if (uiModel >= 2000 && uiModel <= 2200)
-    {
-        return false;
-    }	
     return (IsValidModel(uiModel) && (g_ulVehicleAttributes[uiModel - 400] & VEHICLE_HAS_ADJUSTABLE_PROPERTY));
 }
 
 bool CVehicleManager::HasSmokeTrail(unsigned int uiModel)
 {
-	if (uiModel >= 2000 && uiModel <= 2200)
-    {
-        return false;
-    }	
     return (IsValidModel(uiModel) && (g_ulVehicleAttributes[uiModel - 400] & VEHICLE_HAS_SMOKE_TRAIL));
 }
 
 bool CVehicleManager::IsTrailer(unsigned int uiVehicleModel)
 {
-    if (uiVehicleModel >= 2000 && uiVehicleModel <= 2200)
-    {
-        return false;
-    }	
     return (IsValidModel(uiVehicleModel) && (gs_vehicleTypes[uiVehicleModel - 400] == VEHICLE_TRAILER));
 }
 
 bool CVehicleManager::HasDamageModel(unsigned short usModel)
 {
-    if (usModel >= 2000 && usModel <= 2200)
-    {
-        return false;
-    }	
     return HasDamageModel(GetVehicleType(usModel));
 }
 
