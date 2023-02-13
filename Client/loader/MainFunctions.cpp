@@ -839,7 +839,7 @@ void CheckDataFiles()
     }
 	
 		//Проверка мода гта сибирь//////////////////////////////////////////////////////////////////////////
-	 const char* sibCheckList[] = {"Launcher.exe", "models/gtasib1.img", "models/meloch.img", "Hooks.asi"};
+	 const char* sibCheckList[] = {"Launcher.exe", "models/gtasib1.img", "models/meloch.img", "Hooks.asi", "GUI.fp", "zlib1.dll", "msvcr100d.dll", "MinHook.x86.dll", "DllTricks.dll", "FirstPerson.sp", "$fastman92limitAdjuster.asi"};
 		for (int i = 0; i < NUMELMS(sibCheckList); i++)
 		{
 			if (!FileExists(PathJoin(strGTAPath, sibCheckList[i])))
