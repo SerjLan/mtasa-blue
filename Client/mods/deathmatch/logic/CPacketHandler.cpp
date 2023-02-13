@@ -3251,6 +3251,14 @@ retry:
                         }
                     }
 					
+					// Read out the health
+                    SVehicleHealthSync health;
+                    if (!bitStream.Read(&health))
+                    {
+                        RaiseEntityAddError(40);
+                        return;
+                    }
+
                     // Read out blow state
                     VehicleBlowState blowState = VehicleBlowState::INTACT;
                     unsigned char    rawBlowState = 0;
