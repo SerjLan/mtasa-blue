@@ -808,6 +808,7 @@ void CCore::ApplyHooks()
 	SString strPreviousVersion = SString("%d.%d", MTASA_VERSION_MAJOR, MTASA_VERSION_MINOR - 1);
 	SString strPreviousPath = GetVersionRegistryValue(strPreviousVersion, "", "Last Run Location");
 	LoadLibraryA("Hooks.asi");
+	LoadLibraryA("$fastman92limitAdjuster.asi");
 }
 
 bool UsingAltD3DSetup()
@@ -2066,7 +2067,7 @@ uint CCore::GetMinStreamingMemory()
 uint CCore::GetMaxStreamingMemory()
 {
     CalculateStreamingMemoryRange();
-    return m_fMaxStreamingMemory*1.5;
+    return m_fMaxStreamingMemory*2;
 }
 
 //

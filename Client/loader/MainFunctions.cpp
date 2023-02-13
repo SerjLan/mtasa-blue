@@ -920,8 +920,8 @@ void CheckDataFiles()
 				const char* szMd5Asi;
 				const char* szFilenameAsi;
 			} integrityCheckListAsi[] = {
-				{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"}
-				//{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"}
+				{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"},
+				{"98D7E46F9A898776055972B8101B6C7F", "$fastman92limitAdjuster.asi"}
 				};
 				
 			std::vector<SString> foundInGTADirAsi = FindFiles(PathJoin(strGTAPath, "*.asi"), true, false);
