@@ -620,6 +620,57 @@ eHandlingTypes CHandlingManager::GetHandlingID(eVehicleTypes eModel)
             return HT_FARM_TR1;
         case VT_UTILTR1:
             return HT_UTIL_TR1;
+		case VT_ID2000:
+            return HT_ID2000;		
+		case VT_ID2001:
+            return HT_ID2001;		
+		case VT_ID2002:
+            return HT_ID2002;
+		case VT_ID2003:
+            return HT_ID2003;		
+		case VT_ID2004:
+            return HT_ID2004;		
+		case VT_ID2005:
+            return HT_ID2005;
+		case VT_ID2006:
+            return HT_ID2006;		
+		case VT_ID2007:
+            return HT_ID2007;
+		case VT_ID2008:
+            return HT_ID2008;
+		case VT_ID2009:
+            return HT_ID2009;
+		case VT_ID2010:
+            return HT_ID2010;	
+		case VT_ID2011:
+            return HT_ID2011;		
+		case VT_ID2012:
+            return HT_ID2012;		
+		case VT_ID2013:
+            return HT_ID2013;		
+		case VT_ID2014:
+            return HT_ID2014;
+		case VT_ID2015:
+            return HT_ID2015;		
+		case VT_ID2016:
+            return HT_ID2016;		
+		case VT_ID2017:
+            return HT_ID2017;		
+		case VT_ID2018:
+            return HT_ID2018;		
+		case VT_ID2019:
+            return HT_ID2019;		
+		case VT_ID2020:
+            return HT_ID2020;		
+		case VT_ID2021:
+            return HT_ID2021;		
+		case VT_ID2022:
+            return HT_ID2022;		
+		case VT_ID2023:
+            return HT_ID2023;		
+		case VT_ID2024:
+            return HT_ID2024;		
+		case VT_ID2025:
             return HT_ID2025;		
 		case VT_ID2026:
             return HT_ID2026;			
