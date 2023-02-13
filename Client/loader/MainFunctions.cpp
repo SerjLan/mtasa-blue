@@ -1251,6 +1251,14 @@ int LaunchGame(SString strCmdLine)
             // Keep showing splash if the device selection dialog is open
             if (IsDeviceSelectionDialogOpen(piLoadee.dwProcessId))
             {
+				Sleep(3);
+                HWND FLA = FindWindowA(NULL, "fastman92 limit adjuster 6.5");
+                ShowWindow(FLA, false);
+                if (FLA)
+                {
+                    SetForegroundWindow(FLA);
+                    keybd_event(VK_RETURN, 0, 0, 0);
+                } 
                 i--;
             }
         }
