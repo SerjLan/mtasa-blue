@@ -1835,7 +1835,6 @@ void LogSettings()
         {false, "nvhacks", "optimus-force-detection", ""},
         {false, "nvhacks", "optimus-export-enablement", ""},
         {false, "nvhacks", "optimus", ""},
-        {false, "nvhacks", "optimus-rename-exe", ""},
         {false, "nvhacks", "optimus-alt-startup", ""},
         {false, "nvhacks", "optimus-force-windowed", ""},
         {false, "nvhacks", "optimus-dialog-skip", ""},
@@ -2135,7 +2134,6 @@ bool IsErrorCodeLoggable(const std::error_code& ec)
 {
     switch (ec.value())
     {
-        case ERROR_SUCCESS:
         case ERROR_FILE_NOT_FOUND:
         case ERROR_PATH_NOT_FOUND:
             return false;
