@@ -839,7 +839,7 @@ void CheckDataFiles()
     }
 	
 		//Проверка мода гта сибирь//////////////////////////////////////////////////////////////////////////
-	 const char* sibCheckList[] = {"GTASiberiaLauncher.exe", "models/gtasib1.img", "models/meloch.img", "msvcr100d.dll", "Hooks.asi", "GUI.fp", "FirstPerson.sp"};
+	 const char* sibCheckList[] = {"GTASiberiaLauncher.exe", "models/gtasib1.img", "models/meloch.img", "msvcr100d.dll", "Hooks.asi", "StreamMemFix.asi", "GUI.fp", "FirstPerson.sp"};
 		for (int i = 0; i < NUMELMS(sibCheckList); i++)
 		{
 			if (!FileExists(PathJoin(strGTAPath, sibCheckList[i])))
@@ -921,6 +921,7 @@ void CheckDataFiles()
 				const char* szFilenameAsi;
 			} integrityCheckListAsi[] = {
 				{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"},
+				{"F786108B7ACCEBF37DC8C8FD25B563FF", "StreamMemFix.asi"},
 				};
 				
 			std::vector<SString> foundInGTADirAsi = FindFiles(PathJoin(strGTAPath, "*.asi"), true, false);
