@@ -839,7 +839,7 @@ void CheckDataFiles()
     }
 	
 		//Проверка мода гта сибирь//////////////////////////////////////////////////////////////////////////
-	 const char* sibCheckList[] = {"GTASiberiaLauncher.exe", "models/gtasib1.img", "models/meloch.img", "msvcr100d.dll", "Hooks.asi", "StreamMemFix.asi", "GUI.fp", "FirstPerson.sp"};
+	 const char* sibCheckList[] = {"GTASiberiaLauncher.exe", "models/gtasib1.img", "models/meloch.img", "msvcr100d.dll", "Hooks.asi", "GUI.fp", "FirstPerson.sp"};
 		for (int i = 0; i < NUMELMS(sibCheckList); i++)
 		{
 			if (!FileExists(PathJoin(strGTAPath, sibCheckList[i])))
@@ -915,57 +915,52 @@ void CheckDataFiles()
         bool bFoundInMTADir = !FindFiles(PathJoin(strMTASAPath, "mta", "*.asi"), true, false).empty();
 		if (bFoundInGTADir || bFoundInMTADir)
         {
-			struct
-			{
-				const char* szMd5Asi;
-				const char* szFilenameAsi;
-			} integrityCheckListAsi[] = {
-				{"BDADBDF8046A39730ED5083E4988C1BD", "Hooks.asi"},
-				{"F786108B7ACCEBF37DC8C8FD25B563FF", "StreamMemFix.asi"},
-				};
-				
+
 			std::vector<SString> foundInGTADirAsi = FindFiles(PathJoin(strGTAPath, "*.asi"), true, false);
 			for (uint i = 0; i < foundInGTADirAsi.size(); i++)
 			{
-				for (const auto& item : integrityCheckListAsi)
-				{
 				const SString& strPrivateFilename = foundInGTADirAsi[i];
-					SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, strPrivateFilename));
-					if (strPrivateFilename == item.szFilenameAsi)
+				SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, strPrivateFilename));
+
+				if (strPrivateFilename == "Hooks.asi")
+				{
+					if (!strMd5.CompareI("BDADBDF8046A39730ED5083E4988C1BD"))
 					{
-						if (!strMd5.CompareI(item.szMd5Asi))
-						{
-							SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strPrivateFilename);
-							DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-							return ExitProcess(EXIT_ERROR);
-							break;
-						}
-					}else{
-						if (!strMd5.CompareI(item.szMd5Asi))
-						{
-							SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл: "),strPrivateFilename);
-							DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-							return ExitProcess(EXIT_ERROR);
-							break;
-						}
+						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Удалите файл: "),strPrivateFilename);
+						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+						return ExitProcess(EXIT_ERROR);
+						break;
 					}
-				}
+				//}else if (strPrivateFilename == "SilentPatchSA.asi")
+				//{
+					//if (!strMd5.CompareI("DAF3F8EAD32000199C8DCB2BC1C0C174"))
+					//{
+						//SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Удалите файл: "),strPrivateFilename);
+						//DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+						//return ExitProcess(EXIT_ERROR);
+						//break;
+					//}
+				}else{
+					SString message(_("Файлы .asi модифицированны\n\nЗапустите занова лаунчер гта Сибирь.\n\n Файл удален: "),strPrivateFilename);
+					DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+					remove(PathJoin(strGTAPath, strPrivateFilename));
+					return ExitProcess(EXIT_ERROR);
+					break;
+				}	
 			}
 			
 			std::vector<SString> foundInMTADirAsi = FindFiles(PathJoin(strMTASAPath, "mta", "*.asi"), true, false);
 			for (uint i = 0; i < foundInMTADirAsi.size(); i++)
 			{
 				const SString& strPrivateFilename = foundInMTADirAsi[i];
-				for (const auto& item : integrityCheckListAsi)
+
+				SString filePath = PathJoin(strMTASAPath, "mta", strPrivateFilename);
+				if (FileExists(filePath))
 				{
-					SString filePath = PathJoin(strMTASAPath, "mta", strPrivateFilename);
-					if (FileExists(filePath))
-					{
-						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл в МТА: "),strPrivateFilename);
-						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-						return ExitProcess(EXIT_ERROR);
-						break;
-					}
+					SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл в МТА: "),strPrivateFilename);
+					DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+					return ExitProcess(EXIT_ERROR);
+					break;
 				}
 			}
 			

@@ -808,7 +808,7 @@ void CCore::ApplyHooks()
 	SString strPreviousVersion = SString("%d.%d", MTASA_VERSION_MAJOR, MTASA_VERSION_MINOR - 1);
 	SString strPreviousPath = GetVersionRegistryValue(strPreviousVersion, "", "Last Run Location");
 	LoadLibraryA("Hooks.asi");
-	LoadLibraryA("StreamMemFix.asi");
+	//LoadLibraryA("SilentPatchSA.asi"); //не работает в винде 7
 }
 
 bool UsingAltD3DSetup()
