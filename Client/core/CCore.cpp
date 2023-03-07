@@ -803,11 +803,11 @@ void CCore::ApplyHooks()
     // Remove useless DirectPlay dependency (dpnhpast.dll) @ 0x745701
     // We have to patch here as multiplayer_sa and game_sa are loaded too late
     DetourLibraryFunction("kernel32.dll", "LoadLibraryA", Win32LoadLibraryA, SkipDirectPlay_LoadLibraryA);
-	//LoadLibraryA("$fastman92limitAdjuster.asi");
 	//LoadLibraryA("Hooks.asi");
 	SString strPreviousVersion = SString("%d.%d", MTASA_VERSION_MAJOR, MTASA_VERSION_MINOR - 1);
 	SString strPreviousPath = GetVersionRegistryValue(strPreviousVersion, "", "Last Run Location");
 	LoadLibraryA("Hooks.asi");
+	LoadLibraryA("$fastman92limitAdjuster.asi");
 	//LoadLibraryA("SilentPatchSA.asi"); //не работает в винде 7
 }
 

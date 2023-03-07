@@ -931,15 +931,15 @@ void CheckDataFiles()
 						return ExitProcess(EXIT_ERROR);
 						break;
 					}
-				//}else if (strPrivateFilename == "SilentPatchSA.asi")
-				//{
-					//if (!strMd5.CompareI("DAF3F8EAD32000199C8DCB2BC1C0C174"))
-					//{
-						//SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Удалите файл: "),strPrivateFilename);
-						//DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-						//return ExitProcess(EXIT_ERROR);
-						//break;
-					//}
+				}else if (strPrivateFilename == "$fastman92limitAdjuster.asi")
+				{
+					if (!strMd5.CompareI("E89EA54D6C4C8E162A0EB3CB99B28566"))
+					{
+						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Удалите файл: "),strPrivateFilename);
+						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
+						return ExitProcess(EXIT_ERROR);
+						break;
+					}
 				}else{
 					SString message(_("Файлы .asi модифицированны\n\nЗапустите занова лаунчер гта Сибирь.\n\n Файл удален: "),strPrivateFilename);
 					DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
