@@ -37,8 +37,8 @@
 
 #define CORE_MTA_HOVER_SCALE        0.7f
 #define CORE_MTA_NORMAL_SCALE       0.5f
-#define CORE_MTA_HOVER_ALPHA        0.7f
-#define CORE_MTA_NORMAL_ALPHA       0.5f
+#define CORE_MTA_HOVER_ALPHA        1.0f
+#define CORE_MTA_NORMAL_ALPHA       0.9f
 
 #define CORE_MTA_HIDDEN_ALPHA       0.0f
 #define CORE_MTA_DISABLED_ALPHA     0.4f
