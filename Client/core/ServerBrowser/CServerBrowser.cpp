@@ -515,15 +515,15 @@ void CServerBrowser::CreateTab(ServerBrowserType type, const char* szName)
         fX = fX + 20.0f + pManager->GetTextExtent(m_pIncludeLocked[type]->GetText().c_str()) + SB_SPACER;
         m_pIncludeOffline[type] = reinterpret_cast<CGUICheckBox*>(pManager->CreateCheckBox(m_pTab[type], _("Offline"), true));
         m_pIncludeOffline[type]->SetPosition(CVector2D(fX, fY), false);
-        m_pIncludeOffline[type]->AutoSize(m_pIncludeLocked[type]->GetText().c_str(), 20.0f);
+        m_pIncludeOffline[type]->AutoSize(m_pIncludeOffline[type]->GetText().c_str(), 20.0f);
         m_pIncludeOffline[type]->SetClickHandler(GUI_CALLBACK(&CServerBrowser::OnFilterChanged, this));
 
-        fX = fX + 20.0f + pManager->GetTextExtent(m_pIncludeOffline[type]->GetText().c_str()) + SB_SPACER * 2;
+        fX = fX + 20.0f + pManager->GetTextExtent(m_pIncludeOffline[type]->GetText().c_str()) + SB_SPACER;
     }
     else
     {
         m_pIncludeOffline[type] = NULL;
-        fX = fX + 20.0f + pManager->GetTextExtent(m_pIncludeLocked[type]->GetText().c_str()) + SB_SPACER * 2;
+        fX = fX + 20.0f + pManager->GetTextExtent(m_pIncludeLocked[type]->GetText().c_str()) + SB_SPACER;
     }
 
     m_pIncludeOtherVersions[type] = reinterpret_cast<CGUICheckBox*>(pManager->CreateCheckBox(m_pTab[type], _("Other Versions"), false));
@@ -1576,7 +1576,7 @@ bool CServerBrowser::OnGeneralHelpClick(CGUIElement* pElement)
             CVector2D generalHelpSize = m_pGeneralHelpWindow->GetSize();
             CVector2D generalHelpPos = helpButtonPos - generalHelpSize + CVector2D(helpButtonSize.fX, 0);
             m_pGeneralHelpWindow->SetPosition(generalHelpPos);
-            m_pGeneralHelpWindow->SetVisible(false);
+            m_pGeneralHelpWindow->SetVisible(true);
             m_pGeneralHelpWindow->BringToFront();
         }
     }
@@ -2279,38 +2279,18 @@ void CServerBrowser::OnQuickConnectButtonClick()
     if (m_uiShownQuickConnectHelpCount < 1)
     {
         //m_pQuickConnectHelpWindow->SetVisible(true);
-        //m_pQuickConnectHelpWindow->BringToFront();
-        //m_uiShownQuickConnectHelpCount++;
+       // m_pQuickConnectHelpWindow->BringToFront();
+       // m_uiShownQuickConnectHelpCount++;
     }
 
     // Switch to LAN tab, but don't save it as selected
     if (!m_uiIsUsingTempTab)
         m_BeforeTempServerBrowserType = GetCurrentServerBrowserType();
     m_uiIsUsingTempTab = 2;
-    m_pPanel->SetSelectedTab(m_pTab[ServerBrowserTypes::FAVOURITES]);
+    m_pPanel->SetSelectedTab(m_pTab[ServerBrowserTypes::LAN]);
 
     // Show history
-    //m_pComboAddressHistory[ServerBrowserTypes::LAN]->ShowDropList();
-}
-
-void CServerBrowser::OnQuickConnectButtonClickZbt()
-{
-    // Show help text
-    if (m_uiShownQuickConnectHelpCount < 1)
-    {
-        //m_pQuickConnectHelpWindow->SetVisible(true);
-        //m_pQuickConnectHelpWindow->BringToFront();
-        //m_uiShownQuickConnectHelpCount++;
-    }
-
-    // Switch to LAN tab, but don't save it as selected
-    if (!m_uiIsUsingTempTab)
-        m_BeforeTempServerBrowserType = GetCurrentServerBrowserType();
-    m_uiIsUsingTempTab = 2;
-    m_pPanel->SetSelectedTab(m_pTab[ServerBrowserTypes::FAVOURITES]);
-
-    // Show history
-    //m_pComboAddressHistory[ServerBrowserTypes::LAN]->ShowDropList();
+    m_pComboAddressHistory[ServerBrowserTypes::LAN]->ShowDropList();
 }
 
 bool CServerBrowser::OnServerListChangeRow(CGUIKeyEventArgs Args)

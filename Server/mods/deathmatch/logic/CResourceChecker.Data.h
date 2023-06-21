@@ -12,7 +12,7 @@
 namespace
 {
     //
-    // Minimum version requirments for functions/events
+    // Minimum version requirements for functions/events
     //
 
     struct SVersionItem
@@ -294,6 +294,33 @@ namespace
         {"svgGetSize", "1.5.8-9.20979"},
         {"svgSetDocumentXML", "1.5.8-9.20979"},
         {"svgSetSize", "1.5.8-9.20979"},
+        {"generateKeyPair", "1.5.8-9.21055"},
+        {"getProcessMemoryStats", "1.5.8-9.21389"},
+        {"isCapsLockEnabled", "1.5.8-9.21313"},
+        {"isMTAWindowFocused", "1.5.8-9.21313"},
+        {"onClientMTAFocusChange", "1.5.8-9.21313"},
+        {"getElementLighting", "1.5.8-9.21367"},
+        {"setChatboxCharacterLimit", "1.5.8-9.21476"},
+        {"getChatboxCharacterLimit", "1.5.8-9.21476"},
+
+        // Features added in 1.6.0
+        {"getAllElementData", "1.6.0-9.21695"},
+        {"engineLoadIMG", "1.6.0-9.21695"},
+        {"engineImageLinkDFF", "1.6.0-9.21695"},
+        {"engineImageLinkTXD", "1.6.0-9.21695"},
+        {"engineRestoreDFFImage", "1.6.0-9.21695"},
+        {"engineRestoreTXDImage", "1.6.0-9.21695"},
+        {"engineAddImage", "1.6.0-9.21695"},
+        {"engineRemoveImage", "1.6.0-9.21695"},
+        {"engineImageGetFilesCount", "1.6.0-9.21695"},
+        {"engineImageGetFiles", "1.6.0-9.21695"},
+        {"engineImageGetFile", "1.6.0-9.21695"},
+        {"engineGetModelTXDID", "1.6.0-9.21695"},
+        {"engineSetModelFlags", "1.6.0-9.21695"},
+        {"engineGetModelFlags", "1.6.0-9.21695"},
+        {"engineResetModelFlags", "1.6.0-9.21695"},
+        {"engineGetModelFlag", "1.6.0-9.21695"},
+        {"engineSetModelFlag", "1.6.0-9.21695"},
     };
 
     SVersionItem serverFunctionInitList[] = {
@@ -408,6 +435,12 @@ namespace
         {"onResourceLoadStateChange", "1.5.8-9.20809"},
         {"onElementInteriorChange", "1.5.8-9.20837"},
         {"onPlayerResourceStart", "1.5.8-9.20957"},
+        {"generateKeyPair", "1.5.8-9.21055"},
+        {"getProcessMemoryStats", "1.5.8-9.21389"},
+
+        // Features added in 1.6.0
+        {"isObjectBreakable", "1.6.0-9.21765"},
+        {"setObjectBreakable", "1.6.0-9.21765"},
     };
 
     //
@@ -487,6 +520,8 @@ namespace
         {false, "getControlState", "getPedControlState"},
         {false, "getVehicleTurnVelocity", "getElementAngularVelocity"},
         {false, "setVehicleTurnVelocity", "setElementAngularVelocity"},
+        {false, "getCameraShakeLevel", "getCameraDrunkLevel"},
+        {false, "setCameraShakeLevel", "setCameraDrunkLevel"},
         // Edit
         {false, "guiEditSetCaratIndex", "guiEditSetCaretIndex"},
         {false, "guiMemoSetCaratIndex", "guiMemoSetCaretIndex"},
@@ -557,9 +592,9 @@ namespace
         // Server ped jetpack
         {true, "givePlayerJetPack", "Replaced with setPedWearingJetpack. Refer to the wiki for details"},
         {true, "removePlayerJetPack", "Replaced with setPedWearingJetpack. Refer to the wiki for details"},
-        //{true, "givePedJetPack", "Replaced with setPedWearingJetpack. Refer to the wiki for details"},
-        //{true, "removePedJetPack", "Replaced with setPedWearingJetpack. Refer to the wiki for details"},
-        //{false, "doesPedHaveJetPack", "isPedWearingJetpack"},
+        {true, "givePedJetPack", "Replaced with setPedWearingJetpack. Refer to the wiki for details"},
+        {true, "removePedJetPack", "Replaced with setPedWearingJetpack. Refer to the wiki for details"},
+        {false, "doesPedHaveJetPack", "isPedWearingJetpack"},
 
         // XML
         {false, "xmlNodeGetSubNodes", "xmlNodeGetChildren"},

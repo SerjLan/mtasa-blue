@@ -150,7 +150,7 @@ bool CDynamicLibrary::CheckMtaVersion(const char* szLibName)
 #if MTASA_VERSION_TYPE >= VERSION_TYPE_UNSTABLE
     // define MTASA_SKIP_VERSION_CHECKS in "Shared/build_overrides.h" to skip version checks
 #ifndef MTASA_SKIP_VERSION_CHECKS
-   return true;
+
     if (m_hModule == 0)
         return false;
 

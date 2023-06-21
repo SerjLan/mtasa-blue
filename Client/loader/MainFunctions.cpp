@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- *  PROJECT:     Multi Theft Auto v1.0
+ *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        loader/MainFunctions.cpp
+ *  FILE:        Client/loader/MainFunctions.cpp
  *
- *  Multi Theft Auto is available from http://www.multitheftauto.com/
+ *  Multi Theft Auto is available from https://multitheftauto.com/
  *
  *****************************************************************************/
 
@@ -34,7 +34,7 @@ public:
 
     virtual std::vector<SString> GetAvailableLocales() { return std::vector<SString>(); }
     virtual bool                 IsLocalized() { return false; }
-    virtual SString              GetLanguageDirectory() { return ""; }
+    virtual SString              GetLanguageDirectory(CLanguage* pLanguage = nullptr) { return ""; }
     virtual SString              GetLanguageCode() { return "en_US"; }
     virtual SString              GetLanguageName() { return "English"; }
 };
@@ -206,10 +206,10 @@ void HandleDuplicateLaunching()
     {
         if (strcmp(lpCmdLine, "") != 0)
         {
-            HWND hwMTAWindow = FindWindow(NULL, "MTA: GTA Siberia");
+            HWND hwMTAWindow = FindWindow(NULL, "MTA: San Andreas");
 #ifdef MTA_DEBUG
             if (hwMTAWindow == NULL)
-                hwMTAWindow = FindWindow(NULL, "MTA: GTA Siberia [DEBUG]");
+                hwMTAWindow = FindWindow(NULL, "MTA: San Andreas [DEBUG]");
 #endif
             if (hwMTAWindow != NULL)
             {
@@ -313,7 +313,7 @@ void HandleResetSettings()
 
     CheckAndShowMissingFileMessage();
 
-    SString strSaveFilePath = PathJoin(GetSystemPersonalPath(), "GTA GTASiberia User Files");
+    SString strSaveFilePath = PathJoin(GetSystemPersonalPath(), "GTA San Andreas User Files");
     SString strSettingsFilename = PathJoin(strSaveFilePath, "gta_sa.set");
     SString strSettingsFilenameBak = PathJoin(strSaveFilePath, "gta_sa_old.set");
 
@@ -820,7 +820,7 @@ void CheckDataFiles()
     }
 
     // Make sure the gta executable exists
-    if (!FileExists(PathJoin(strGTAPath, MTA_GTAEXE_NAME)))
+    if (!FileExists(PathJoin(strGTAPath, GTA_EXE_NAME)) && !FileExists(PathJoin(strGTAPath, STEAM_GTA_EXE_NAME)))
     {
         DisplayErrorMessageBox(SString(_("Load failed. Could not find gta_sa.exe in %s."), strGTAPath.c_str()), _E("CL20"), "gta_sa-missing");
         return ExitProcess(EXIT_ERROR);
@@ -837,18 +837,6 @@ void CheckDataFiles()
             return ExitProcess(EXIT_ERROR);
         }
     }
-	
-		//Проверка мода гта сибирь//////////////////////////////////////////////////////////////////////////
-	 const char* sibCheckList[] = {"GTASiberiaLauncher.exe", "models/gtasib1.img", "models/meloch.img", "msvcr100d.dll", "Hooks.asi", "GUI.fp", "FirstPerson.sp"};
-		for (int i = 0; i < NUMELMS(sibCheckList); i++)
-		{
-			if (!FileExists(PathJoin(strGTAPath, sibCheckList[i])))
-			{
-				DisplayErrorMessageBox(SString(_("Ошибка загрузки мода ГТАСИБИРЬ. %s установите мод по указанному пути. Подробности на сайте gtasiberia.ru."), strGTAPath.c_str()), _E("CL20"), "gta_sa-missing");
-				return ExitProcess(EXIT_ERROR);
-			}
-		}
-
 
     // Check main exe has the correct name
     if (GetLaunchFilename().CompareI(MTA_EXE_NAME) == false)
@@ -874,14 +862,14 @@ void CheckDataFiles()
     {
         const char* expected;
         const char* fileName;
-    } integrityCheckList[] = {{"8E58FCC0672A66C827C6F90FA4B58538", "bass.dll"},            {"285A668CB793F5A5CA134DE9682A6064", "bass_aac.dll"},
-                              {"07C11F7D8058F350ADF6FC9AB81B38AC", "bass_ac3.dll"},        {"D8CCB4B8235F31A3C73485FDE18B0187", "bass_fx.dll"},
-                              {"65F79B61AD377DE06D88FE40B1D70538", "bassflac.dll"},        {"9AAF837944A9763CD914AC7D31ABC8C7", "bassmidi.dll"},
-                              {"D31DA7583083C1370F3C6B9C15F363CC", "bassmix.dll"},         {"75FCD499EE86AC9B234FF837D2080CDA", "bassopus.dll"},
-                              {"07852D9E8DB268D0187EDDBDD25A29E9", "basswebm.dll"},        {"1507C60C02E159B5FB247FEC6B209B09", "basswma.dll"},
-                              {"6E2C5DCF4EE973E69ECA39288D20C436", "tags.dll"},            {"D439E8EDD8C93D7ADE9C04BCFE9197C6", "sa.dat"},
-                              {"B33B21DB610116262D906305CE65C354", "D3DCompiler_42.dll"},  {"1C9B45E87528B8BB8CFA884EA0099A85", "d3dcompiler_43.dll"},
-                              {"C6A44FC3CF2F5801561804272217B14D", "D3DX9_42.dll"},        {"E1677EC0E21E27405E65E31419980348", "d3dcompiler_47.dll"},
+    } integrityCheckList[] = {{"8EB9167D68897A89B3EFE47162C1574A", "bass.dll"},           {"285A668CB793F5A5CA134DE9682A6064", "bass_aac.dll"},
+                              {"07C11F7D8058F350ADF6FC9AB81B38AC", "bass_ac3.dll"},       {"D8CCB4B8235F31A3C73485FDE18B0187", "bass_fx.dll"},
+                              {"64C96631887874F7ED9D8881FC016846", "bassflac.dll"},       {"4D34014DB481244EABA366B827DDD1B5", "bassmidi.dll"},
+                              {"5DEEC10A943E352EF7E0223327E8B48C", "bassmix.dll"},        {"B04050AD912FB7E03F529F2C3F7D991D", "bassopus.dll"},
+                              {"0F1B2FC6C0C703A43A24DC05352E7ADA", "basswebm.dll"},       {"893113C6C49DC1E1EF288310E68DB306", "basswma.dll"},
+                              {"6E2C5DCF4EE973E69ECA39288D20C436", "tags.dll"},           {"D439E8EDD8C93D7ADE9C04BCFE9197C6", "sa.dat"},
+                              {"B33B21DB610116262D906305CE65C354", "D3DCompiler_42.dll"}, {"1C9B45E87528B8BB8CFA884EA0099A85", "d3dcompiler_43.dll"},
+                              {"C6A44FC3CF2F5801561804272217B14D", "D3DX9_42.dll"},       {"3B4647BCB9FEB591C2C05D1A606ED988", "d3dcompiler_47.dll"},
                               {"F137D5BE2D8E76597B3F269B73DBB6A6", "XInput9_1_0_mta.dll"}};
 
     for (const auto& item : integrityCheckList)
@@ -908,72 +896,23 @@ void CheckDataFiles()
             break;
         }
     }
-	
-   // Check for asi files
+
+    // Check for asi files
     {
         bool bFoundInGTADir = !FindFiles(PathJoin(strGTAPath, "*.asi"), true, false).empty();
         bool bFoundInMTADir = !FindFiles(PathJoin(strMTASAPath, "mta", "*.asi"), true, false).empty();
-		if (bFoundInGTADir || bFoundInMTADir)
+        if (bFoundInGTADir || bFoundInMTADir)
         {
-
-			std::vector<SString> foundInGTADirAsi = FindFiles(PathJoin(strGTAPath, "*.asi"), true, false);
-			for (uint i = 0; i < foundInGTADirAsi.size(); i++)
-			{
-				const SString& strPrivateFilename = foundInGTADirAsi[i];
-				SString strMd5 = CMD5Hasher::CalculateHexString(PathJoin(strGTAPath, strPrivateFilename));
-
-				if (strPrivateFilename == "Hooks.asi")
-				{
-					if (!strMd5.CompareI("BDADBDF8046A39730ED5083E4988C1BD"))
-					{
-						SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Удалите файл: "),strPrivateFilename);
-						DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-						return ExitProcess(EXIT_ERROR);
-						break;
-					}
-				//}else if (strPrivateFilename == "$fastman92limitAdjuster.asi")
-				//{
-					//if (!strMd5.CompareI("E89EA54D6C4C8E162A0EB3CB99B28566"))
-					//{
-						//SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Удалите файл: "),strPrivateFilename);
-						//DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-						//return ExitProcess(EXIT_ERROR);
-						//break;
-					//}
-				}else{
-					SString message(_("Файлы .asi модифицированны\n\nЗапустите занова лаунчер гта Сибирь.\n\n Файл удален: "),strPrivateFilename);
-					DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-					remove(PathJoin(strGTAPath, strPrivateFilename));
-					return ExitProcess(EXIT_ERROR);
-					break;
-				}	
-			}
-			
-			std::vector<SString> foundInMTADirAsi = FindFiles(PathJoin(strMTASAPath, "mta", "*.asi"), true, false);
-			for (uint i = 0; i < foundInMTADirAsi.size(); i++)
-			{
-				const SString& strPrivateFilename = foundInMTADirAsi[i];
-
-				SString filePath = PathJoin(strMTASAPath, "mta", strPrivateFilename);
-				if (FileExists(filePath))
-				{
-					SString message(_("Файлы .asi модифицированны\n\nСкачайте занова игру.\n\n Или удалите файл в МТА: "),strPrivateFilename);
-					DisplayErrorMessageBox(message+strPrivateFilename, _E("CL30"),"maybe-virus2");
-					return ExitProcess(EXIT_ERROR);
-					break;
-				}
-			}
-			
-		}
-	}
+            DisplayErrorMessageBox(_(".asi files are in the 'MTA:SA' or 'GTA: San Andreas' installation directory.\n\n"
+                                     "Remove these .asi files if you experience problems with MTA:SA."),
+                                   _E("CL28"), "asi-files");
+        }
+    }
 
     // Check for graphics libraries in the GTA/MTA install directory
     {
         // An array of pairs of: a registry prefix and a directory path
-        std::array<std::pair<const char*, SString>, 2> directoriesToCheck = {{
-            {"", strGTAPath},
-            {"mta-", PathJoin(strMTASAPath, "mta")}
-        }};
+        std::array<std::pair<const char*, SString>, 2> directoriesToCheck = {{{"", strGTAPath}, {"mta-", PathJoin(strMTASAPath, "mta")}}};
 
         std::vector<GraphicsLibrary> offenders;
 
@@ -1042,6 +981,7 @@ void CheckLibVersions()
                                 "MTA\\core.dll",
                                 "MTA\\game_sa.dll",
                                 "MTA\\multiplayer_sa.dll",
+                                "MTA\\netc.dll",
                                 "MTA\\xmll.dll",
                                 "MTA\\game_sa.dll",
                                 "MTA\\" LOADER_PROXY_DLL_NAME,
@@ -1103,53 +1043,58 @@ void CheckLibVersions()
 BOOL StartGtaProcess(const SString& lpApplicationName, const SString& lpCommandLine, const SString& lpCurrentDirectory,
                      LPPROCESS_INFORMATION lpProcessInformation, DWORD& dwOutError, SString& strOutErrorContext)
 {
-    std::vector<DWORD> processIdListBefore = GetGTAProcessList();
-    // Start GTA
-    BOOL bResult = ShellExecuteNonBlocking("open", lpApplicationName, lpCommandLine, lpCurrentDirectory);
+    STARTUPINFOW startupInfo{};
+    startupInfo.cb = sizeof(startupInfo);
+    BOOL wasProcessCreated = CreateProcessW(*FromUTF8(lpApplicationName), FromUTF8(lpCommandLine).data(), nullptr, nullptr, FALSE, 0, nullptr,
+                                            *FromUTF8(lpCurrentDirectory), &startupInfo, lpProcessInformation);
 
-    if (bResult == FALSE)
+    if (wasProcessCreated)
+        return true;
+
+    std::vector<DWORD> processIdListBefore = GetGTAProcessList();
+
+    if (!ShellExecuteNonBlocking("open", lpApplicationName, lpCommandLine, lpCurrentDirectory))
     {
         dwOutError = GetLastError();
         strOutErrorContext = "ShellExecute";
+        return false;
     }
-    else
+
+    // Determine pid of new gta process
+    for (uint i = 0; i < 10; i++)
     {
-        // Determine pid of new gta process
-        for (uint i = 0; i < 10; i++)
+        std::vector<DWORD> processIdList = GetGTAProcessList();
+        for (DWORD pid : processIdList)
         {
-            std::vector<DWORD> processIdList = GetGTAProcessList();
-            for (DWORD pid : processIdList)
+            if (ListContains(processIdListBefore, pid))
             {
-                if (ListContains(processIdListBefore, pid))
-                {
-                    continue;
-                }
-                lpProcessInformation->dwProcessId = pid;
-                lpProcessInformation->hProcess = OpenProcess(PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION | SYNCHRONIZE, FALSE, pid);
-                break;
+                continue;
             }
-            if (lpProcessInformation->dwProcessId)
-                break;
-            Sleep(500);
+            lpProcessInformation->dwProcessId = pid;
+            lpProcessInformation->hProcess = OpenProcess(PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION | SYNCHRONIZE, FALSE, pid);
+            break;
         }
-
-        if (lpProcessInformation->dwProcessId == 0)
-        {
-            // Unable to get pid
-            dwOutError = ERROR_INVALID_FUNCTION;
-            strOutErrorContext = "FindPID";
-            bResult = false;
-        }
-        else if (lpProcessInformation->hProcess == nullptr)
-        {
-            // Unable to OpenProcess
-            dwOutError = ERROR_ELEVATION_REQUIRED;
-            strOutErrorContext = "OpenProcess";
-            bResult = false;
-        }
+        if (lpProcessInformation->dwProcessId)
+            break;
+        Sleep(500);
     }
 
-    return bResult;
+    if (lpProcessInformation->dwProcessId == 0)
+    {
+        // Unable to get pid
+        dwOutError = ERROR_INVALID_FUNCTION;
+        strOutErrorContext = "FindPID";
+        wasProcessCreated = false;
+    }
+    else if (lpProcessInformation->hProcess == nullptr)
+    {
+        // Unable to OpenProcess
+        dwOutError = ERROR_ELEVATION_REQUIRED;
+        strOutErrorContext = "OpenProcess";
+        wasProcessCreated = false;
+    }
+
+    return wasProcessCreated;
 }
 
 //////////////////////////////////////////////////////////
@@ -1168,8 +1113,8 @@ int LaunchGame(SString strCmdLine)
     const SString strGTAPath = GetGTAPath();
     const SString strMTASAPath = GetMTASAPath();
     SString       strMtaDir = PathJoin(strMTASAPath, "mta");
-    SString       strGTAEXEPath = GetGameExecutablePath().string();
-	
+    SString       strGTAEXEPath = GetGameExecutablePath().u8string();
+
     SetDllDirectory(strMtaDir);
     if (!CheckService(CHECK_SERVICE_PRE_CREATE) && !IsUserAdmin())
     {
@@ -1180,10 +1125,6 @@ int LaunchGame(SString strCmdLine)
     // Do some D3D things
     BeginD3DStuff();
     LogSettings();
-
-    // Use renamed exe if required
-    //SString strGTAEXEPath = GetInstallManager()->MaybeRenameExe(strGTAPath);
-    //SetCurrentDirectory(strGTAPath);
 
     WatchDogBeginSection("L2");                                     // Gets closed when loading screen is shown
     WatchDogBeginSection("L3");                                     // Gets closed when loading screen is shown, or a startup problem is handled elsewhere
@@ -1257,14 +1198,6 @@ int LaunchGame(SString strCmdLine)
             // Keep showing splash if the device selection dialog is open
             if (IsDeviceSelectionDialogOpen(piLoadee.dwProcessId))
             {
-				Sleep(5);
-                HWND FLA = FindWindowA(NULL, "fastman92 limit adjuster 6.5");
-                ShowWindow(FLA, false);
-                if (FLA)
-                {
-                    SetForegroundWindow(FLA);
-                    keybd_event(VK_RETURN, 0, 0, 0);
-                } 
                 i--;
             }
         }

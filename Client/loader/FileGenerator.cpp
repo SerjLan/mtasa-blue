@@ -69,11 +69,11 @@ static bool Extract(const char* fileName, const fs::path& destination, const std
         {
             const std::wstring destinationString = destination.wstring();
             result = (ERAR_SUCCESS == RARProcessFileW(archiveHandle, RAR_EXTRACT, nullptr, const_cast<wchar_t*>(destinationString.data())));
-            
+
             if (!result)
                 ec.assign(ERROR_WRITE_FAULT, std::system_category());
 
-			break;
+            break;
         }
 
         if (RARProcessFileW(archiveHandle, RAR_SKIP, nullptr, nullptr) != ERAR_SUCCESS)
@@ -81,14 +81,14 @@ static bool Extract(const char* fileName, const fs::path& destination, const std
     }
 
     RARCloseArchive(archiveHandle);
-	
-	std::error_code ignore;
+
+    std::error_code ignore;
     fs::remove(archivePath, ignore);
 
     if (result)
         return true;
 
-	if (!ec)
+    if (!ec)
         ec.assign(ERROR_NOT_FOUND, std::system_category());
 
     return false;
@@ -121,17 +121,17 @@ bool FileGenerator::LoadPatcherData(std::error_code& ec)
 
     if (!GetFileContent(m_patchBasePath, base, ec))
         return false;
-	
-	if (base.size() != SIZE_PATCH_BASE)
+
+    if (base.size() != SIZE_PATCH_BASE)
     {
         ec.assign(ERROR_BAD_LENGTH, std::system_category());
         return false;
     }
-	
+
     // Load the patch diff and verify its length.
     std::vector<unsigned char> diff{};
 
-	if (!GetFileContent(m_patchDiffPath, diff, ec))
+    if (!GetFileContent(m_patchDiffPath, diff, ec))
         return false;
 
     if (diff.size() != SIZE_PATCH_DIFF)
@@ -139,6 +139,7 @@ bool FileGenerator::LoadPatcherData(std::error_code& ec)
         ec.assign(ERROR_BAD_LENGTH, std::system_category());
         return false;
     }
+
     // Reuncompression using future delta system.
     size_t index = 0;
 
@@ -150,10 +151,11 @@ bool FileGenerator::LoadPatcherData(std::error_code& ec)
 
     // Check if the patcher data has the correct checksum.
     if (GetFileBufferHash(diff) != HASH_PATCHER_DATA)
-     {
-        ec.assign(ERROR_DATA_CHECKSUM_ERROR, std::system_category());   
-		return false;
+    {
+        ec.assign(ERROR_DATA_CHECKSUM_ERROR, std::system_category());
+        return false;
     }
+
     m_data = std::move(diff);
     return true;
 }
@@ -196,7 +198,7 @@ bool FileGenerator::IsPatchDiff(const fs::path& filePath)
     if (GetFileHash(filePath, hash, ec) && hash == HASH_PATCH_DIFF)
         return true;
 
-	if (IsErrorCodeLoggable(ec))
+    if (IsErrorCodeLoggable(ec))
     {
         const uintmax_t fileSize = GetFileSize(filePath);
         AddReportLog(5053, SString("IsPatchDiff: Incorrect file '%ls' (err: %d, size: %ju, hash: %s)", filePath.wstring().c_str(), ec.value(), fileSize,
